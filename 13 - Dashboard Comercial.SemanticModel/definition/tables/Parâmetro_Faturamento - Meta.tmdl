@@ -1,0 +1,48 @@
+table 'Parâmetro_Faturamento - Meta'
+	lineageTag: 4f510aaa-9a48-4b55-a6ef-bbf3a57622ea
+
+	column 'Parâmetro Faturamento - Meta '
+		lineageTag: ba766f83-0aff-45f2-8486-1c8486527ae8
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parâmetro Faturamento - Meta  Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Parâmetro Faturamento - Meta  Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Faturamento - Meta  Campos'
+		isHidden
+		lineageTag: 2ab30cb8-5bec-4d96-8943-d131cbb1b4ee
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parâmetro Faturamento - Meta  Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Faturamento - Meta  Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 48a8c982-8f51-4104-ade2-45730f51715b
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parâmetro_Faturamento - Meta' = calculated
+		mode: import
+		source =
+				{
+				    ("Faturamento", NAMEOF('_Medidas'[Faturamento]), 0),
+				    ("% Faturamento vs Meta", NAMEOF('_Medidas'[% Faturamento vs Meta]), 1)
+				}
+
+	annotation PBI_Id = 0e5323bfba4e4155acf54e3c7e04d3bd
+

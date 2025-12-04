@@ -1,0 +1,55 @@
+table 'Tab_Curva ABC'
+	lineageTag: 0d20055b-6d88-4234-bf4b-effc74fa78c8
+
+	column 'Grupo Curva ABC'
+		dataType: string
+		lineageTag: d062bf17-a0a4-43a1-93f3-1ebb0e4a1037
+		summarizeBy: none
+		sourceColumn: Grupo Curva ABC
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_ABC
+		dataType: int64
+		formatString: 0
+		lineageTag: c8b973fc-32ba-42eb-8868-ec588c598f28
+		summarizeBy: sum
+		sourceColumn: ID_ABC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Liminf
+		dataType: double
+		lineageTag: a9ae8bb1-f324-40ea-a78e-6b0c7d81b754
+		summarizeBy: sum
+		sourceColumn: Liminf
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LimSup
+		dataType: double
+		lineageTag: 6b975a99-a240-45f8-84e5-8263993b3d40
+		summarizeBy: sum
+		sourceColumn: LimSup
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Tab_Curva ABC-788c85f2-7198-480d-b439-017e3e9683ce' = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclTSUTIEYgMdAwMwZWaqFKsTreQE5BjBBECUpQFY3BnIMYYJALWCtMXGAgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Grupo Curva ABC" = _t, ID_ABC = _t, Liminf = _t, LimSup = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Grupo Curva ABC", type text}, {"ID_ABC", Int64.Type}, {"Liminf", type number}, {"LimSup", type number}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado",0.65,0.8,Replacer.ReplaceValue,{"LimSup"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído",0.65,0.8,Replacer.ReplaceValue,{"Liminf"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1",0.9,0.95,Replacer.ReplaceValue,{"LimSup"}),
+				    #"Valor Substituído3" = Table.ReplaceValue(#"Valor Substituído2",0.9,0.95,Replacer.ReplaceValue,{"Liminf"})
+				in
+				    #"Valor Substituído3"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,42 @@
+table 'Tab_Sel_ Pareto'
+	lineageTag: 30dff9bd-97f5-4c4a-80f2-48e665778c26
+
+	column 'Intervalo Pareto '
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: de232c9c-ea79-46f5-ab5a-d33fa2ac7041
+		summarizeBy: sum
+		sourceColumn: "Intervalo Pareto "
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParetoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a0b2ec2-51a8-4cd2-a48c-755cd06f597f
+		summarizeBy: count
+		sourceColumn: ParetoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor
+		dataType: double
+		lineageTag: 691cf037-1d4c-43fe-8b0b-42cd047a4032
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Tab_Sel_ Pareto' = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("Hci5DQAgDATBXk4ic8Bnnlos998GaINJJkJei0ztq+ZKCy2mM4vZzGA2c5jJHOYyzlxlPg==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Intervalo Pareto " = _t, ParetoID = _t, Valor = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Intervalo Pareto ", Percentage.Type}, {"ParetoID", Int64.Type}, {"Valor", type number}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

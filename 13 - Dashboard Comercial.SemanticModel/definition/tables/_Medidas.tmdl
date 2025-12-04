@@ -1,0 +1,1994 @@
+table _Medidas
+	lineageTag: f6786b59-fa8e-407d-8c7e-04541ef3c7b3
+
+	measure Faturamento = ```
+			
+			
+			SUM(fato_Vendas[Valor Total])
+			
+			
+			//A medida "Faturamento" calcula a soma total dos valores de vendas na coluna "Valor Total" da tabela "fVendas".
+			//SUM: Esta função DAX calcula a soma dos valores.
+			//fVendas: É o nome da tabela na qual estamos realizando o cálculo.
+			//[Valor Total]: É a coluna específica dentro da tabela "fVendas" da qual estamos somando os valores.
+			
+			
+			
+			// Esta é a forma mais indicada para calcular o faturamento, sem criar coluna calculada:
+			//    SUMX(fVendas,
+			//        fVendas[QtdItens]*fVendas[ValorUnitario]
+			//        )
+			
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 77864f57-6610-430f-93ee-e186abcd11f0
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Quantidade de Itens Vendidos' = ```
+			
+			
+			SUM(fato_Vendas[QtdItens])
+			
+			```
+		formatString: #,0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: f9e5b83f-f82f-4703-a545-5fabea5a47e2
+
+		changedProperty = FormatString
+
+	measure 'N° Notas Fiscais' = ```
+			
+			
+			DISTINCTCOUNT(fato_Vendas[NFe])
+			
+			```
+		formatString: 0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: f47801ad-c030-4e89-ba77-dad235b4ae5a
+
+	measure 'Total Meta' = ```
+			
+			
+			SUM(fato_Metas[Valor Meta])
+			
+			//A medida "Total Meta" calcula a soma total dos valores de metas definidas na tabela "fMetas".
+			
+			// SUM: Esta função DAX calcula a soma dos valores.
+			// fMetas: É o nome da tabela de onde estamos somando os valores de metas.
+			// [Valor Meta]: É a coluna específica na tabela "fMetas" da qual estamos somando os valores.
+			
+			/*
+			A medida "Total Meta" é utilizada para calcular o valor total das metas definidas e registradas na tabela "fMetas". Essa medida é útil para acompanhar o progresso em relação às metas estabelecidas em um modelo de dados do Power BI.
+			*/
+			
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 64ab2a8d-75d0-435b-8f70-995af7979706
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Quantidade de Média de Produtos' = ```
+			
+			
+			AVERAGE(fato_Vendas[QtdItens])
+			
+			```
+		formatString: #,0.00
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 5b59ab40-469e-4a15-9c1e-33fe09345b6f
+
+		changedProperty = FormatString
+
+	measure 'Qtd Vendas / Quantidade de Vendas por Nota Fiscal' = ```
+			
+			
+			 DISTINCTCOUNT(fato_Vendas[NFe])
+			
+			
+			// A medida "Quantidade de Vendas por Nota Fiscal" calcula o número de vendas distintas contando as notas fiscais únicas na coluna "NFe" da tabela "fVendas".
+			// DISTINCTCOUNT: É uma função DAX que conta valores distintos em uma coluna.
+			// fVendas: É o nome da tabela onde estamos contando as notas fiscais.
+			// [NFe]: É a coluna específica da tabela "fVendas" da qual estamos contando os valores.
+			
+			/*
+			Descrição:
+			
+			A medida "Quantidade de Vendas por Nota Fiscal" calcula quantas notas fiscais únicas estão presentes na coluna "NFe" da tabela "fVendas". Ela fornece o número de vendas distintas com base nas notas fiscais, o que é útil para entender o volume de vendas únicas registradas no modelo de dados do Power BI.
+			*/ 
+			
+			```
+		formatString: #,0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 97474787-555f-4501-88cc-f88f0bc6f7f8
+
+		changedProperty = FormatString
+
+	measure 'Ticket Médio / Ticket Médio por Nota' = ```
+			
+			
+			DIVIDE([Faturamento],
+			       [Qtd Vendas / Quantidade de Vendas por Nota Fiscal]
+			       )
+			
+			// A medida "Ticket Médio por Nota" calcula o valor médio gasto por nota fiscal, dividindo o faturamento total pelo número de notas fiscais.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Faturamento]: É a medida que representa o valor total de faturamento.
+			// [N° Notas Fiscais]: É a medida que representa o número de notas fiscais emitidas.
+			
+			/*
+			Descrição:
+			
+			A medida "Ticket Médio por Nota" é útil para calcular o valor médio gasto por nota fiscal emitida. Ela divide o faturamento total pelo número de notas fiscais, proporcionando uma visão média do gasto por transação registrada no modelo de dados do Power BI.
+			*/
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 041456f6-bf5f-4f17-8e63-7c178319b7cb
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Faturamento Bebida' =
+			
+			
+			CALCULATE([Faturamento],
+			          dim_Produto[Linha Produto] = "Bebidas"
+			)
+		isHidden
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 00c2ac06-b061-4d4b-9bcb-7ea47d72fd8f
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Alimentos' =
+			
+			
+			CALCULATE([Faturamento],
+			          dim_Produto[Linha Produto] = "Alimentos"
+			)
+		isHidden
+		displayFolder: 0. Medidas Gerais
+		lineageTag: b5ea6bbf-bb60-4a87-9d52-bf357c4e3ae2
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Alimentos 2018' =
+			
+			
+			CALCULATE([Faturamento],
+			          dim_Produto[Linha Produto] = "Alimentos", dim_Calendario[Ano] = 2018
+			)
+		isHidden
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 310d04ae-ff94-461e-ad29-22a940344955
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Faturamento 2018' = ```
+			
+			
+			DIVIDE([Faturamento 2018/Faturamento Somente em 2018],
+			       [Faturamento]
+			       )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 8685ce67-7234-41e7-b0fe-92e167fc1cdf
+
+		changedProperty = FormatString
+
+		changedProperty = IsHidden
+
+	measure 'Quantidade (ALL) Vendas (Valor Fixo)' = ```
+			
+			
+			// Queremos saber a quantidade total de vendas, retirando/ignorando qualquer contexto sobre a tabela vendedor ou sobre a coluna vendedor que esta sendo utilizada como filtro no exemplo (Trilha/Linguagem Dax/Aula 13). Assim teremos como resposta o valor total único 
+			
+			CALCULATE([Qtd Vendas / Quantidade de Vendas por Nota Fiscal],
+			          ALL(dim_Vendedor)
+			          )
+			
+			```
+		formatString: #,0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 0adea37e-d2ce-47d6-a3f2-6f23c5b2ca0a
+
+		changedProperty = FormatString
+
+	measure '% Linhas (Vendas)' = ```
+			
+			
+			DIVIDE([Qtd Vendas / Quantidade de Vendas por Nota Fiscal],
+			       [Quantidade (ALL) Vendas (Valor Fixo)]
+			       )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 3e82bb58-e718-49a6-9fd8-7344842447f5
+
+		changedProperty = FormatString
+
+	measure 'Positivação ou Cobertura' = ```
+			
+			
+			// Com esta fórmula poderemos acompanhar quantos produtos cada vendedor está vendendo, ou seja, conseguiremos saber se algum vendedor está deixando de vender algum produto específico ou se esta vendendo sempre os mesmo produtos. Assim, podemos identificar e ofertar outros produtos através de uma meta de vendas X sobre cada produto.
+			
+			DISTINCTCOUNT(fato_Vendas[cdProduto])
+			
+			// A medida "Positivação ou Cobertura" calcula quantos produtos únicos foram vendidos, permitindo rastrear o número de produtos diferentes que cada vendedor está vendendo.
+			
+			// DISTINCTCOUNT: É uma função DAX que conta valores distintos em uma coluna.
+			// fVendas: É o nome da tabela onde estamos contando os produtos.
+			// [cdProduto]: É a coluna específica da tabela "fVendas" da qual estamos contando os produtos únicos.
+			
+			/*
+			A medida "Positivação ou Cobertura" ajuda a monitorar quantos produtos diferentes cada vendedor está vendendo, permitindo identificar se algum vendedor está deixando de vender produtos específicos. Isso pode ser usado para estabelecer metas de vendas para produtos individuais e oferecer suporte aos vendedores na diversificação de produtos vendidos.
+			*/
+			
+			```
+		formatString: 0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 2d3f3fd3-968a-4e47-ba4c-85d58f598a88
+
+	measure 'Positivação ou Cobertura PM (Mês Passado)' =
+			
+			
+			// Com esta fórmula poderemos acompanhar quantos produtos cada vendedor está vendendo no mês passado, ou seja, conseguiremos saber se algum vendedor está deixando de vender algum produto específico ou se esta vendendo sempre os mesmo produtos. Assim, podemos identificar e ofertar outros produtos através de uma meta de vendas X sobre cada produto.
+			
+			CALCULATE([Positivação ou Cobertura],
+			          DATEADD(dim_Calendario[Data],
+			                  -1,MONTH
+			                  )
+			          )
+		formatString: 0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 8925601f-c32e-491b-8984-14ac00857b58
+
+	measure 'Quantidade de Linhas (Vendas)' =
+			
+			
+			DISTINCTCOUNT(fato_Vendas[cdProduto])
+		formatString: 0
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 599db3df-4eba-48e3-b3dd-95bdd1194123
+
+	measure 'Média Valor Unitário' = ```
+			
+			
+			AVERAGE(fato_Vendas[ValorUnitario])
+			
+			```
+		displayFolder: 0. Medidas Gerais
+		lineageTag: 98834ca3-4b67-49de-9f4a-39d4e83f2e8c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Faturamento vs Meta' = ```
+			
+			
+			DIVIDE([Faturamento],
+			       [Total Meta]
+			       )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 0. Medidas Gerais
+		lineageTag: e523696f-1466-4ddf-bcdb-9f1ed74fb572
+
+		changedProperty = FormatString
+
+	measure '% Faturamento MoM/ Faturamento ao Mês' = ```
+			
+			
+			DIVIDE([Faturamento]-[Faturamento Last Month/ Faturamento Último Mês],
+			       [Faturamento Last Month/ Faturamento Último Mês]
+			       )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: ef137d55-18a0-4a2b-b25d-0751c96e04d6
+
+		changedProperty = FormatString
+
+	measure 'Faturamento Last Month/ Faturamento Último Mês' = ```
+			
+			
+			// PREVIOUSMONTH só executa o cálculo até o nível de mês!!!
+			// CALCULATE([Faturamento],
+			//          PREVIOUSMONTH(dCalendario[Data])
+			//          )
+			
+			// DATEADD é mais poderosa, pois ela calcula a nível de dia também!
+			CALCULATE([Faturamento],
+			         DATEADD(dim_Calendario[Data],
+			                 -1,
+			                 MONTH
+			                 )
+			          )
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 70a438b1-95b7-44c2-8f5a-940096faaed3
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '% Faturamento YoY/ Variação Percentual do Faturamento em Relação ao Ano Anterior' = ```
+			
+			
+			DIVIDE([Faturamento]-[Faturamento Ano Anterior / Faturamento Last Year],
+			       [Faturamento Ano Anterior / Faturamento Last Year]
+			       )
+			
+			//A medida "% Faturamento YoY" (Year-over-Year) calcula a variação percentual do faturamento em relação ao ano anterior, permitindo analisar o crescimento ou decréscimo das vendas em termos percentuais.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Faturamento]: É a medida que representa o faturamento atual.
+			// [Faturamento Last Year/ Faturamento Último Ano]: É a medida que representa o faturamento do ano anterior.
+			
+			/*
+			A medida "% Faturamento YoY" permite calcular a variação percentual do faturamento em relação ao ano anterior. Isso é útil para avaliar o crescimento ou decréscimo das vendas de um ano para o outro, expresso como uma porcentagem. Essa medida é comumente usada para análises de desempenho e planejamento financeiro.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 5f486d9d-3325-4dab-84fc-39c4baa5ad13
+
+		changedProperty = FormatString
+
+	measure '% Positivação ou Cobertura Percentual em Relação ao Ano Anterior' = ```
+			
+			
+			// Com esta fórmula poderemos acompanhar quantos produtos cada vendedor está vendendo em relação ao ano passado, ou seja, conseguiremos saber se algum vendedor está deixando de vender algum produto específico ou se esta vendendo sempre os mesmo produtos. Assim, podemos identificar e ofertar outros produtos através de uma meta de vendas X sobre cada produto.
+			
+			DIVIDE([Positivação ou Cobertura]-[Positivação ou Cobertura Year (Ano Anterior)],
+			       [Positivação ou Cobertura Year (Ano Anterior)]
+			       )
+			
+			//A medida "% Positivação ou Cobertura YoY" (Year-over-Year) calcula a variação percentual da positivação ou cobertura em relação ao ano anterior, permitindo analisar o crescimento ou decréscimo dessa métrica em termos percentuais.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Positivação ou Cobertura]: É a medida que representa a positivação ou cobertura no período atual.
+			// [Positivação ou Cobertura Year (Ano Passado)]: É a medida que representa a positivação ou cobertura do ano anterior.
+			
+			/*
+			A medida "% Positivação ou Cobertura YoY" permite calcular a variação percentual da positivação ou cobertura em relação ao ano anterior. Isso é útil para avaliar o crescimento ou decréscimo dessa métrica ao longo do tempo, expresso como uma porcentagem, o que auxilia nas análises de desempenho e planejamento estratégico.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 7007eaf8-6f91-44f3-ae85-62a9f920a4c9
+
+		changedProperty = FormatString
+
+	measure '% Qtd Vendas YoY/ Percentual de Qtd Vendas em Relação ao Ano Anterior' = ```
+			
+			
+			DIVIDE([Qtd Vendas / Quantidade de Vendas por Nota Fiscal]-[Qtd Vendas Ano Anterior],
+			       [Qtd Vendas Ano Anterior]
+			       )
+			
+			//A medida "% Qtd Vendas YoY" (Year-over-Year) calcula a variação percentual da quantidade de vendas em relação ao ano anterior, permitindo analisar o crescimento ou decréscimo das vendas em termos percentuais.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Quantidade de Vendas por Nota Fiscal]: É a medida que representa a quantidade de vendas no período atual.
+			// [Qtd Vendas Last Year]: É a medida que representa a quantidade de vendas do ano anterior.
+			
+			/*
+			A medida "% Qtd Vendas YoY" permite calcular a variação percentual da quantidade de vendas em relação ao ano anterior. Isso é útil para avaliar o crescimento ou decréscimo das vendas em termos percentuais, o que auxilia nas análises de desempenho e planejamento de vendas.
+			*/
+			
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 042d4627-5dac-4716-a2fa-5ab586b5fdfb
+
+		changedProperty = FormatString
+
+	measure '% Ticket Médio YoY/ Percentual do Ticket Médio em Relação ao Ano Anterior' = ```
+			
+			
+			DIVIDE([Ticket Médio / Ticket Médio por Nota]-[Ticket Médio por Nota Ano Anterior / Ticket Médio por Nota Last Year],
+			       [Ticket Médio por Nota Ano Anterior / Ticket Médio por Nota Last Year]
+			       )
+			
+			// A medida "% Ticket Médio YoY" (Year-over-Year) calcula a variação percentual do ticket médio em relação ao ano anterior, permitindo analisar o crescimento ou decréscimo médio dos valores das vendas em termos percentuais.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Ticket Médio por Nota]: É a medida que representa o ticket médio no período atual.
+			// [Ticket Médio por Nota Last Year]: É a medida que representa o ticket médio do ano anterior.
+			
+			/*
+			A medida "% Ticket Médio YoY" permite calcular a variação percentual do ticket médio em relação ao ano anterior. Isso é útil para avaliar o crescimento ou decréscimo médio dos valores de vendas, expresso como uma porcentagem, o que auxilia nas análises de desempenho e planejamento financeiro.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 6e19bbcf-6e96-4e32-a0ab-12aabf635699
+
+		changedProperty = FormatString
+
+	measure 'Faturamento 2018/Faturamento Somente em 2018' = ```
+			
+			
+			CALCULATE([Faturamento],
+			          dim_Calendario[Ano] = 2018
+			          )
+			          
+			```
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 60f129ad-598e-4f5c-ab98-2cfb650b3e99
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Ano Anterior / Faturamento Last Year' =
+			
+			
+			// CALCULATE([Faturamento],
+			//            PREVIOUSYEAR(dCalendario[Data])
+			//            )
+			
+			// A função DATEADD é mais poderosa, pois retorna todos os níveis anteriores (Ano, Mês e Dia)
+			
+			CALCULATE([Faturamento],
+			          DATEADD(dim_Calendario[Data],
+			                  -1,
+			                   YEAR
+			                   )
+			          )
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 9b5cb6f2-f5cc-4283-a000-a6bd04837b78
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Faturamento Semana a Semana Anterior' = ```
+			
+			
+			// Esta função é personalizada, pois não existe uma função que retorna a semana!
+			
+			
+			CALCULATE([Faturamento],
+			          FILTER(
+			                  ALL(dim_Calendario),  -- Retira o contexto de filtro.
+			                  dim_Calendario[Semana do Ano] = SELECTEDVALUE(dim_Calendario[Semana do Ano]) - 1
+			                  ),
+			          VALUES(dim_Calendario[Ano])    -- Devolve o contexto de filtro.  
+			          )
+			
+			
+			-- A função abaixo é igual a primeira, porém é mais fácil de entender:
+			
+			/*
+			CALCULATE([Faturamento],
+			          FILTER(
+			                  ALL(dCalendario),
+			                  dCalendario[Semana do Ano] = SELECTEDVALUE(dCalendario[Semana do Ano]) - 1 &&
+			                  dCalendario[Ano] = SELECTEDVALUE(dCalendario[Ano]    -- este valor é igual usar a Values por fora.
+			                  )
+			          )
+			*/
+			
+			
+			-- Abaixo a explicação realizada pelo ChatGPT:
+			
+			/*
+			A função que você desenvolveu, "Faturamento Semana a Semana Anterior", parece estar relacionada ao cálculo do faturamento da semana atual em comparação com a semana anterior. Vou explicar o papel de cada parte dessa função personalizada:
+			
+			CALCULATE([Faturamento], ...):
+			
+			Esta é a função CALCULATE do DAX (Data Analysis Expressions). Ela é usada para modificar o contexto de avaliação das expressões em uma fórmula DAX. Nesse caso, a expressão que está sendo modificada é [Faturamento].
+			FILTER(ALL(dCalendario), dCalendario[Semana do Ano] = SELECTEDVALUE(dCalendario[Semana do Ano]) - 1):
+			
+			A função FILTER é usada para filtrar uma tabela. Aqui, você está filtrando a tabela dCalendario.
+			A função ALL(dCalendario) remove qualquer filtro aplicado à tabela dCalendario, tornando-a completa.
+			A condição de filtro é que a coluna dCalendario[Semana do Ano] seja igual à semana do ano selecionada atualmente (a partir da função SELECTEDVALUE), subtraindo 1, o que efetivamente seleciona a semana anterior.
+			VALUES(dCalendario[Ano]):
+			
+			A função VALUES é usada para retornar uma tabela com os valores únicos da coluna especificada. Aqui, você está obtendo os valores únicos da coluna dCalendario[Ano].
+			A ideia geral dessa função é calcular o faturamento para a semana atual, mas apenas se a semana anterior existir. Para fazer isso, ela filtra a tabela dCalendario para encontrar a semana anterior em relação à semana selecionada e garante que os valores do ano permaneçam os mesmos. Em seguida, o cálculo do faturamento é aplicado a esse contexto.
+			
+			Portanto, a função resultará no faturamento da semana atual apenas se a semana anterior existir no conjunto de dados e estiver no mesmo ano. Caso contrário, o valor resultante será nulo ou vazio. Isso permite comparar o faturamento da semana atual com a semana anterior de forma dinâmica.
+			*/
+			
+			/*
+			Peço desculpas se minha explicação anterior não foi clara. A função VALUES(dCalendario[Ano]) foi utilizada no cálculo para garantir que o contexto de avaliação da função CALCULATE seja restrito ao mesmo ano da semana atual. Vou explicar com mais detalhes por que essa função VALUES é usada nesse contexto.
+			
+			No seu cálculo, você está comparando o faturamento da semana atual com a semana anterior. Para garantir que essa comparação seja feita dentro do mesmo ano, você precisa criar um contexto de filtro que inclua apenas o ano da semana atual. Isso é importante porque, em alguns casos, o número da semana pode se repetir em anos diferentes (por exemplo, a "semana 1" pode ocorrer em vários anos).
+			
+			Aqui está o raciocínio passo a passo:
+			
+			Você usa a função SELECTEDVALUE(dCalendario[Semana do Ano]) para obter o valor da semana do ano selecionada atualmente, que é a semana atual.
+			
+			Você subtrai 1 dessa semana para obter a semana anterior.
+			
+			Em seguida, você usa a função FILTER(ALL(dCalendario), dCalendario[Semana do Ano] = SELECTEDVALUE(dCalendario[Semana do Ano]) - 1) para criar um contexto de filtro. Isso filtra a tabela dCalendario para incluir apenas as linhas onde a coluna dCalendario[Semana do Ano] é igual à semana anterior calculada.
+			
+			Agora, aqui está a razão para usar a função VALUES(dCalendario[Ano]):
+			
+			Se você não usasse a função VALUES(dCalendario[Ano]), o contexto de filtro criado pela função FILTER teria incluído todas as semanas anteriores de todos os anos. Isso não é o que você deseja, porque você quer comparar a semana atual com a semana anterior dentro do mesmo ano.
+			
+			Ao adicionar a função VALUES(dCalendario[Ano]), você garante que o contexto de filtro seja restrito ao ano da semana atual. Isso significa que a função FILTER considerará apenas as semanas anteriores dentro do mesmo ano da semana atual, o que é crucial para a comparação correta.
+			
+			Portanto, a função VALUES(dCalendario[Ano]) está garantindo que o contexto de filtro seja específico para o mesmo ano da semana atual, permitindo uma comparação correta entre as semanas atual e anterior em termos de faturamento.
+			*/
+			```
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 25ddba96-aaab-46e0-a61a-e9d419d0ae80
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento YTD ( ) Acumulado' =
+			
+			
+			CALCULATE([Faturamento],
+			          DATESYTD(dim_Calendario[Data])
+			          )
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 3491e834-ff35-4e79-86f6-21896926f342
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Positivação ou Cobertura Year (Ano Anterior)' =
+			
+			
+			// Com esta fórmula poderemos acompanhar quantos produtos cada vendedor está vendendo no ano passado, ou seja, conseguiremos saber se algum vendedor está deixando de vender algum produto específico ou se está vendendo sempre os mesmo produtos. Assim, podemos identificar e ofertar outros produtos através de uma meta de vendas X sobre cada produto.
+			
+			CALCULATE([Positivação ou Cobertura],
+			          DATEADD(dim_Calendario[Data],
+			                  -1,YEAR
+			                  )
+			          )
+			
+			/*
+			
+			-- Descrição realizada pelo ChatGPT:
+			
+			Positivação e cobertura são termos frequentemente utilizados em contextos de vendas e gestão de estoque para avaliar o desempenho e a presença dos produtos de uma empresa no mercado. Vamos entender melhor o significado de cada um desses termos:
+			
+			Positivação:
+			
+			A positivação refere-se à ação de garantir que os produtos de uma empresa estejam disponíveis e visíveis nos pontos de venda, como lojas físicas ou online, de acordo com o planejamento estratégico da empresa. Isso envolve a colocação eficaz dos produtos nas prateleiras, estandes ou na plataforma de comércio eletrônico, de modo que os clientes possam encontrá-los facilmente.
+			
+			A positivação é crucial para garantir que os produtos estejam disponíveis para compra pelos consumidores quando desejam. A falta de positivação pode resultar em perda de vendas, pois os clientes podem optar por produtos concorrentes se não encontrarem o que estão procurando.
+			
+			Cobertura:
+			
+			A cobertura, por outro lado, refere-se à extensão da presença dos produtos de uma empresa em um mercado ou região específica. Isso pode ser medido de várias maneiras, como a quantidade de pontos de venda que oferecem os produtos da empresa em uma determinada área geográfica.
+			
+			A cobertura está relacionada à expansão do alcance da empresa e à penetração em novos mercados. Uma empresa pode ter uma cobertura ampla se seus produtos estiverem disponíveis em muitos locais diferentes, ou uma cobertura mais estreita se estiver focada em um mercado específico.
+			
+			Para desenvolver um dashboard de vendas, você pode usar métricas relacionadas à positivação e cobertura para avaliar o desempenho da sua empresa em diferentes aspectos geográficos ou de mercado. Por exemplo, você pode rastrear o número de lojas que vendem seus produtos, a disponibilidade dos produtos nas prateleiras e a penetração de mercado em diferentes regiões. Essas métricas podem ajudá-lo a identificar áreas de melhoria e oportunidades para aumentar as vendas e a presença da sua empresa no mercado.
+			
+			*/
+		formatString: 0
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 78eea4cf-f004-4339-89d2-3436c63bfcd5
+
+	measure 'Qtd Vendas Ano Anterior' = ```
+			
+			
+			CALCULATE([Qtd Vendas / Quantidade de Vendas por Nota Fiscal],
+			          DATEADD(dim_Calendario[Data],
+			                  -1,
+			                   YEAR
+			                   )
+			          )
+			
+			// A medida "Qtd Vendas Ano Anterior" calcula a quantidade de vendas do ano anterior usando a medida "Quantidade de Vendas por Nota Fiscal" com base na data do calendário.
+			
+			// CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [Quantidade de Vendas por Nota Fiscal]: É a medida que representa a quantidade de vendas por nota fiscal.
+			//DATEADD: É uma função DAX que permite adicionar ou subtrair um número de unidades de tempo a uma data.
+			// dCalendario[Data]: É a coluna de datas da tabela de calendário.
+			// -1: Indica que estamos subtraindo um ano da data atual.
+			// YEAR: Retorna o ano da data atual.
+			
+			/*
+			A medida "Qtd Vendas Ano Anterior" utiliza a função CALCULATE para calcular a quantidade de vendas do ano anterior, alterando o contexto de cálculo da medida "Quantidade de Vendas por Nota Fiscal". Isso é feito subtraindo um ano da data atual usando a função DATEADD e, em seguida, calculando a quantidade de vendas com base nesse contexto de data ajustado. Essa medida é útil para comparar o desempenho de vendas entre anos diferentes.
+			*/
+			
+			
+			```
+		formatString: 0
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: 150ff843-6975-42b0-a51b-ce8cbb1b2889
+
+	measure 'Ticket Médio por Nota Ano Anterior / Ticket Médio por Nota Last Year' = ```
+			
+			
+			CALCULATE([Ticket Médio / Ticket Médio por Nota],
+			          DATEADD(dim_Calendario[Data],
+			                  -1,
+			                   YEAR
+			                   )
+			          )
+			
+			        
+			```
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: ffadb118-d0d3-4fbf-a250-c3da80e55258
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Eixo Dinâmico (Y)' =
+			
+			
+			// Encontra a forma correta de fazer!
+			
+			
+			VAR vTabela = ALLSELECTED(dim_Calendario[Ano])
+			VAR vMaiorValorMeta = MAXX(vTabela,[Total Meta])
+			VAR vMaiorValorFaturamento = MAXX(vTabela,[Faturamento])
+			
+			VAR vChek = MAX(vMaiorValorMeta,vMaiorValorFaturamento)
+			
+			Return
+			
+			vChek * 1.3
+		formatString: 0
+		displayFolder: 5. Eixo Dinâmico
+		lineageTag: db71f769-196c-4ea4-8da5-76d6ffd44787
+
+		changedProperty = IsHidden
+
+	measure '% Faturamento dos Top 3' = ```
+			
+			
+			DIVIDE([Faturamento dos Top 3],
+			       [Faturamento]
+			       )
+			
+			// A medida "% Faturamento dos Top 3" calcula a porcentagem do faturamento total representada pelos três melhores vendedores em relação ao faturamento geral.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Faturamento dos Top 3]: É a medida que representa o faturamento total dos três melhores vendedores.
+			// [Faturamento]: É a medida que representa o faturamento total da empresa.
+			
+			/*
+			A medida "% Faturamento dos Top 3" permite calcular a proporção do faturamento total que é gerado pelos três melhores vendedores em relação ao faturamento geral da empresa. Isso ajuda a identificar o impacto percentual dos vendedores de alto desempenho no faturamento total da organização.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 2. Ranking
+		lineageTag: 9ea0111d-7329-4596-b7b4-dd47aacf909a
+
+		changedProperty = FormatString
+
+	measure '% Positivação dos Top 3' = ```
+			
+			
+			DIVIDE([Positivação dos Top 3],
+			       [Positivação ou Cobertura]
+			       )
+			
+			// A medida "% Positivação dos Top 3" calcula a porcentagem da positivação ou cobertura total representada pelos três melhores vendedores em relação à positivação ou cobertura geral da empresa.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Positivação dos Top 3]: É a medida que representa a positivação ou cobertura total dos três melhores vendedores.
+			// [Positivação ou Cobertura]: É a medida que representa a positivação ou cobertura total da empresa.
+			
+			/*
+			A medida "% Positivação dos Top 3" permite calcular a proporção da positivação ou cobertura total representada pelos três melhores vendedores em relação à positivação ou cobertura geral da empresa. Isso ajuda a entender qual é a contribuição percentual desses vendedores de alto desempenho para a positivação ou cobertura total da empresa.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 2. Ranking
+		lineageTag: 4a8a4ec3-5463-43c8-af2e-4d62d7a0f615
+
+		changedProperty = FormatString
+
+	measure '% Qtd Venda dos Top 3' = ```
+			
+			
+			DIVIDE([Qts de Vendas dos Top 3],
+			       [Qtd Vendas / Quantidade de Vendas por Nota Fiscal]
+			       )
+			
+			// A medida "% Qtd Venda dos Top 3" calcula a porcentagem da quantidade de vendas realizada pelos três melhores vendedores em relação ao total de vendas.
+			
+			// DIVIDE: É uma função DAX usada para realizar a divisão.
+			// [Qts de Vendas dos Top 3]: É a medida que representa a quantidade de vendas realizadas pelos três melhores vendedores.
+			// [Qtd Vendas / Quantidade de Vendas por Nota Fiscal]: É a medida que representa o total de vendas da empresa.
+			
+			/*
+			A medida "% Qtd Venda dos Top 3" permite calcular a proporção da quantidade de vendas realizada pelos três melhores vendedores em relação ao volume total de vendas da empresa. Isso ajuda a entender qual é a contribuição percentual desses vendedores de alto desempenho para o total de vendas.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 2. Ranking
+		lineageTag: 78dd16ae-8849-4cea-9a1c-f990f27aced9
+
+		changedProperty = FormatString
+
+	measure 'Faturamento dos Top 3' =
+			
+			
+			CALCULATE([Faturamento],
+			          FILTER(dim_Vendedor,
+			                 [Rank]<=3
+			                 )
+			          )
+			
+			// A medida "Faturamento dos Top 3" calcula o faturamento total gerado pelos três melhores vendedores com base em um ranking específico.
+			
+			// CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [Faturamento]: É a medida que representa o faturamento total.
+			// FILTER: É uma função DAX usada para filtrar dados com base em critérios específicos.
+			// dVendedor: É a tabela que contém os dados dos vendedores.
+			// [Rank]: É a coluna que contém os rankings dos vendedores.
+			// <= 3: É a condição que filtra apenas os vendedores com classificação igual ou menor que 3.
+			
+			
+			/*
+			A medida "Faturamento dos Top 3" é útil para calcular o faturamento total gerado pelos três melhores vendedores com base em um critério de classificação específico, como o ranking. Isso pode ser valioso para reconhecer e recompensar os vendedores de alto desempenho ou para tomar decisões estratégicas com base no desempenho dos melhores vendedores.
+			*/
+		displayFolder: 2. Ranking
+		lineageTag: 988745a5-bb41-46b2-ae6f-cba233eb2dd2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Vendedor Top 1' =
+			
+			
+			CALCULATE([Faturamento],
+			          FILTER(dim_Vendedor,
+			                 [Rank]=1
+			                 )
+			          )
+		displayFolder: 2. Ranking
+		lineageTag: 51547a27-0c37-4bfa-b5f8-b8424defb645
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Vendedor Top 2' = ```
+			
+			
+			CALCULATE([Faturamento],
+			          FILTER(dim_Vendedor,
+			                 [Rank]=2
+			                 )
+			          )
+			
+			// A medida "Faturamento Vendedor Top 2" calcula o faturamento gerado pelo vendedor que ocupa a segunda posição (2º lugar) com base em um ranking específico.
+			
+			// CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [Faturamento]: É a medida que representa o faturamento total.
+			// FILTER: É uma função DAX usada para filtrar dados com base em critérios específicos.
+			// dVendedor: É a tabela que contém os dados dos vendedores.
+			// [Rank]: É a coluna que contém os rankings dos vendedores.
+			// = 2: É a condição que filtra apenas o vendedor que ocupa a segunda posição (2º lugar) no ranking.
+			
+			/*
+			A medida "Faturamento Vendedor Top 2" é usada para calcular o faturamento gerado pelo vendedor que está classificado como o segundo melhor (2º lugar) com base em um critério de classificação específico, como o ranking. Isso ajuda a identificar o desempenho de vendas do segundo colocado em termos de faturamento.
+			*/
+			
+			```
+		displayFolder: 2. Ranking
+		lineageTag: 74e89c85-eb40-4e0b-97b9-c39cc1fb8a8f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Vendedor Top 3' = ```
+			
+			
+			CALCULATE([Faturamento],
+			          FILTER(dim_Vendedor,
+			                 [Rank]=3
+			                 )
+			          )
+			
+			// A medida "Faturamento Vendedor Top 3" calcula o faturamento gerado pelo vendedor que ocupa a terceira posição (3º lugar) com base em um ranking específico.
+			
+			//CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [Faturamento]: É a medida que representa o faturamento total.
+			// FILTER: É uma função DAX usada para filtrar dados com base em critérios específicos.
+			// dVendedor: É a tabela que contém os dados dos vendedores.
+			// [Rank]: É a coluna que contém os rankings dos vendedores.
+			// = 3: É a condição que filtra apenas o vendedor que ocupa a terceira posição (3º lugar) no ranking.
+			
+			/*
+			A medida "Faturamento Vendedor Top 3" é usada para calcular o faturamento gerado pelo vendedor que está classificado como o terceiro melhor (3º lugar) com base em um critério de classificação específico, como o ranking. Isso ajuda a identificar o desempenho de vendas do terceiro colocado em termos de faturamento.
+			*/
+			
+			```
+		displayFolder: 2. Ranking
+		lineageTag: 8a906e22-8531-4761-8026-b8ba894954f3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nome Vendedor Top 1' = ```
+			
+			
+			// Esta medida pode ser utilizada igualmente como o visual Text Enhancer by MAQ Software
+			
+			TOPN(1,
+			     VALUES(dim_Vendedor[Vendedor]), 
+			     [Faturamento]
+			     )
+			
+			```
+		isHidden
+		displayFolder: 2. Ranking
+		lineageTag: 6744e5ec-c446-4949-9196-7a798a1ede07
+
+		changedProperty = IsHidden
+
+	measure 'Nome Vendedor Top 2' = ```
+			
+			
+			// Esta medida pode ser utilizada igualmente como o visual Text Enhancer by MAQ Software
+			
+			TOPN(2,
+			     VALUES(dim_Vendedor[Vendedor]), 
+			     [Faturamento]
+			     )
+			     
+			```
+		isHidden
+		displayFolder: 2. Ranking
+		lineageTag: 4ca97fc5-7540-4867-a919-d269cab4ad20
+
+		changedProperty = IsHidden
+
+	measure 'Positivação dos Top 3' = ```
+			
+			
+			CALCULATE([Positivação ou Cobertura],
+			          FILTER(dim_Vendedor,
+			                 [Rank]<=3
+			                 )
+			          )
+			
+			// A medida "Positivação dos Top 3" calcula a positivação ou cobertura total gerada pelos três melhores vendedores com base em um ranking específico.
+			
+			// CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [Positivação ou Cobertura]: É a medida que representa a positivação ou cobertura total.
+			// FILTER: É uma função DAX usada para filtrar dados com base em critérios específicos.
+			// dVendedor: É a tabela que contém os dados dos vendedores.
+			// [Rank]: É a coluna que contém os rankings dos vendedores.
+			// <= 3: É a condição que filtra apenas os vendedores com classificação igual ou menor que 3.
+			
+			/*
+			A medida "Positivação dos Top 3" é usada para calcular a positivação ou cobertura total gerada pelos três melhores vendedores com base em um critério de classificação específico, como o ranking. Isso ajuda a entender qual é a contribuição desses vendedores de alto desempenho para a positivação ou cobertura geral da empresa.
+			*/
+			
+			```
+		formatString: 0
+		displayFolder: 2. Ranking
+		lineageTag: b15ac2db-c284-4928-94a9-d8d8e575c2cf
+
+	measure 'Qts de Vendas dos Top 3' = ```
+			
+			
+			CALCULATE([Qtd Vendas / Quantidade de Vendas por Nota Fiscal],
+			          FILTER(dim_Vendedor,
+			                 [Rank]<=3
+			                 )
+			          )
+			
+			// A medida "Qtd de Vendas dos Top 3" calcula a quantidade de vendas realizadas pelos três melhores vendedores com base em um ranking específico.
+			
+			// CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [Qtd Vendas / Quantidade de Vendas por Nota Fiscal]: É a medida que representa a quantidade de vendas por nota fiscal.
+			// FILTER: É uma função DAX usada para filtrar dados com base em critérios específicos.
+			// dVendedor: É a tabela que contém os dados dos vendedores.
+			// [Rank]: É a coluna que contém os rankings dos vendedores.
+			// <= 3: É a condição que filtra apenas os vendedores com classificação igual ou menor que 3.
+			
+			/*
+			A medida "Qtd de Vendas dos Top 3" é usada para calcular a quantidade de vendas realizadas pelos três melhores vendedores com base em um critério de classificação específico, como o ranking. Isso ajuda a identificar quantas vendas são atribuídas aos vendedores de alto desempenho, facilitando a análise do impacto deles no volume total de vendas.
+			*/
+			
+			```
+		formatString: #,0
+		displayFolder: 2. Ranking
+		lineageTag: 30b9f06e-1d4c-4e14-950b-6e050a6ddd9f
+
+		changedProperty = FormatString
+
+	measure Rank = ```
+			
+			
+			RANKX(ALL(dim_Vendedor),
+			      [Faturamento]
+			      )
+			
+			// A medida "Rank" atribui uma classificação (ou ranking) a cada vendedor com base no seu desempenho de faturamento, classificando-os do melhor para o pior.
+			
+			// RANKX: É uma função DAX que calcula o ranking de valores em uma coluna.
+			// ALL(dVendedor): Remove quaisquer filtros aplicados à tabela "dVendedor", garantindo que todos os vendedores sejam considerados.
+			// [Faturamento]: É a coluna pela qual os vendedores serão classificados para determinar o ranking.
+			
+			/*
+			A medida "Rank" é usada para classificar os vendedores com base no seu desempenho de faturamento. Isso pode ajudar a identificar os vendedores mais bem-sucedidos em termos de faturamento, permitindo que a empresa reconheça e tome decisões com base no desempenho individual dos vendedores. Os vendedores com classificação mais alta terão um valor de "Rank" menor.
+			*/
+			
+			```
+		formatString: 0
+		displayFolder: 2. Ranking
+		lineageTag: 8d172f72-fc0d-4194-b8ec-5ed813dd9fa1
+
+	measure 'Nome Vendedor Top 3' = ```
+			
+			
+			// Esta medida pode ser utilizada igualmente como o visual Text Enhancer by MAQ Software
+			
+			TOPN(3,
+			     VALUES(dim_Vendedor[Vendedor]), 
+			     [Faturamento]
+			     )
+			     
+			```
+		isHidden
+		displayFolder: 2. Ranking
+		lineageTag: 34f8d6de-56db-46e6-b9bb-091fd0aa77c8
+
+		changedProperty = IsHidden
+
+	measure '2 Lucro' = ```
+			
+			
+			[1 Novo Faturamento]-[Faturamento]
+			
+			// A medida "Lucro" calcula a diferença entre o "Novo Faturamento" e o "Faturamento" original, representando o lucro resultante da variação de preço.
+			
+			// [Novo Faturamento]: É a medida que representa o faturamento total após a variação de preço.
+			// [Faturamento]: É a medida que representa o faturamento total antes da variação de preço.
+			// A fórmula calcula a diferença entre o faturamento com a variação de preço e o faturamento original, representando o lucro resultante dessa variação.
+			
+			/*
+			A medida "Lucro" é usada para calcular o lucro obtido após a variação de preço ter sido aplicada ao faturamento original. Essa medida indica o impacto financeiro da variação de preço nas operações da empresa. Se o valor for positivo, representa um lucro adicional; se for negativo, representa uma perda financeira.
+			*/
+			
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 3. Simulação
+		lineageTag: c7dbe508-db4f-47b6-914e-d658149a71bb
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '1 Novo Faturamento' = ```
+			
+			
+			-- 1° Criar o Slice, clicando em modelagem, novo parâmetro;
+			-- 2° Nome Var, Tipo de Dados Número Decimal, Percetual Mínimo -1 e Máximo 1 e Increntro de 0,05;
+			-- 3° O power bi criará uma tabela chamada de VarPrecoUnit;
+			-- 4° Clique em Modo de Exibição da Tabela, clique na tabela VarPrecoUnit e altere em ferranenta de medida para o valor porcentagem. 
+			
+			SUMX(fato_Vendas,
+			     fato_Vendas[QtdItens] *
+			     (fato_Vendas[ValorUnitario] * (1+[Var Valor]))
+			     )
+			
+			// A fórmula "Novo Faturamento" calcula o faturamento total com base na quantidade de itens vendidos, no valor unitário dos itens e em uma variação percentual de preço.
+			
+			// SUMX: É uma função DAX que realiza uma soma ponderada de valores calculados em uma tabela.
+			// fVendas: É a tabela que contém os dados de vendas.
+			// fVendas[QtdItens]: É a coluna que representa a quantidade de itens vendidos em cada transação.
+			// fVendas[ValorUnitario]: É a coluna que representa o valor unitário de cada item.
+			// [Var Valor]: É o valor da variação percentual de preço, obtido da medida "Var Valor."
+			// A fórmula calcula o faturamento total multiplicando a quantidade de itens pelo valor unitário, considerando a variação de preço.
+			
+			/*
+			A fórmula "Novo Faturamento" é usada para calcular o faturamento total com base nas quantidades de itens vendidos, nos valores unitários dos itens e em uma variação percentual de preço. Ela leva em conta a variação de preço para determinar o impacto dessa variação no faturamento total das vendas.
+			*/
+			
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 3. Simulação
+		lineageTag: 22947b24-1429-4678-bf77-e698c5409d07
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '% Cross-Sell Confiança' = ```
+			
+			
+			DIVIDE(
+			       [Cross-Sell Suporte],
+			       [Qtd Vendas / Quantidade de Vendas por Nota Fiscal]
+			       )
+			
+			// A medida "% Cross-Sell Confiança" calcula a porcentagem de confiança no cross-sell, representando a proporção entre o suporte de cross-sell e a quantidade total de vendas por nota fiscal.
+			
+			// DIVIDE: É uma função DAX que realiza uma divisão entre dois valores.
+			// [Cross-Sell Suporte]: É a medida que representa o suporte de cross-sell, ou seja, o número de notas fiscais em que produtos de // //// diferentes grupos foram vendidos juntos.
+			// [Qtd Vendas / Quantidade de Vendas por Nota Fiscal]: É a medida que representa a quantidade de vendas dividida pelo número total de // notas fiscais, o que resulta na média de vendas por nota fiscal.
+			
+			/*
+			A medida "% Cross-Sell Confiança" ajuda a avaliar a confiança no cross-selling, mostrando a proporção de notas fiscais em que produtos de diferentes grupos foram vendidos juntos em relação à média de vendas por nota fiscal. Quanto maior a porcentagem, maior a confiança de que os produtos de diferentes grupos estão sendo vendidos juntos com frequência.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Cross Sell
+		lineageTag: 7ecb31c6-0aa7-47f3-a79d-4aa43389f1f5
+
+		changedProperty = FormatString
+
+	measure 'Cross-Sell Suporte' = ```
+			
+			
+			// Todas as NFes do produto do filtrado:
+			
+			VAR vVendas = VALUES(fato_Vendas[NFe])
+			
+			// Todas as NFes do produto auxiliar ou tabela auxiliar dProdutoCrossSell:
+			
+			VAR vVendasCross = CALCULATETABLE(
+			                                   VALUES(fato_Vendas[NFe]), //Notas originais
+			                                   ALL(dim_Produto), //Removo o filtro do produto principal
+			                                   USERELATIONSHIP(Tab_dProdutoCrossSell[cdProduto], fato_Vendas[cdProduto]) // Considero o filtro do produto auxiliar
+			                                 )
+			
+			VAR vCross = INTERSECT(vVendas, vVendasCross)
+			
+			RETURN
+			IF(SELECTEDVALUE(dim_Produto[Grupo Produto]) <> SELECTEDVALUE(Tab_dProdutoCrossSell[Grupo Produto]), // Desconsidera o produto principal da análise
+			    COUNTROWS(vCross)
+			)
+			
+			
+			```
+		formatString: 0
+		displayFolder: 4. Cross Sell
+		lineageTag: 72516293-cd3a-4727-8724-8bd0de2da962
+
+	measure 'Produto Maior Confiança' = ```
+			
+			
+			CALCULATE(
+			          [% Cross-Sell Confiança], 
+			          TOPN(1,
+			               VALUES(Tab_dProdutoCrossSell[Grupo Produto]),
+			                      [% Cross-Sell Confiança]
+			               )
+			          )
+			
+			// A medida "Produto Maior Confiança" identifica o produto que possui a maior confiança no cross-sell, com base na medida de confiança (% Cross-Sell Confiança).
+			
+			// CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [% Cross-Sell Confiança]: É a medida que representa a porcentagem de confiança no cross-sell.
+			// TOPN(1, ...): É uma função DAX que retorna o item com o maior valor dentro de um conjunto de valores, neste caso, o produto com a //// maior confiança.
+			// VALUES(dProdutoCrossSell[Grupo Produto]): É uma função DAX que retorna os valores únicos da coluna "Grupo Produto" da tabela ///////// "dProdutoCrossSell," que representa os grupos de produtos auxiliares no cross-sell.
+			// [% Cross-Sell Confiança]: Define a ordem de classificação para encontrar o produto com a maior confiança.
+			
+			/*
+			A medida "Produto Maior Confiança" utiliza a porcentagem de confiança no cross-sell para identificar o produto que possui a maior confiança entre os produtos auxiliares no cross-sell. Isso ajuda a determinar qual produto é mais frequentemente vendido em conjunto com produtos do grupo principal, indicando oportunidades de cross-selling eficaz.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Cross Sell
+		lineageTag: b9034798-a5c0-45e7-b94f-695d1da1a436
+
+		changedProperty = FormatString
+
+	measure 'Produto Maior Suporte' = ```
+			
+			
+			CALCULATE([Cross-Sell Suporte],
+			          TOPN(1,
+			               VALUES(Tab_dProdutoCrossSell[Grupo Produto]),
+			               [% Cross-Sell Confiança])
+			          )
+			
+			// A medida "Produto Maior Suporte" identifica o produto que possui o maior suporte de cross-sell (número de notas fiscais em que é vendido junto com produtos do grupo principal) com base na medida de confiança (% Cross-Sell Confiança).
+			
+			// CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			// [Cross-Sell Suporte]: É a medida que representa o suporte de cross-sell, ou seja, o número de notas fiscais em que produtos de /////// diferentes grupos foram vendidos juntos.
+			// TOPN(1, ...): É uma função DAX que retorna o item com o maior valor dentro de um conjunto de valores, neste caso, o produto com o //// maior suporte de cross-sell.
+			// VALUES(dProdutoCrossSell[Grupo Produto]): É uma função DAX que retorna os valores únicos da coluna "Grupo Produto" da tabela ///////// "dProdutoCrossSell," que representa os grupos de produtos auxiliares no cross-sell.
+			// [% Cross-Sell Confiança]: Define a ordem de classificação para encontrar o produto com o maior suporte.
+			
+			/*
+			A medida "Produto Maior Suporte" utiliza o suporte de cross-sell para identificar o produto que possui o maior número de notas fiscais em que é vendido junto com produtos do grupo principal. Isso ajuda a determinar qual produto é mais frequentemente vendido em conjunto, indicando oportunidades de cross-selling com base no suporte das vendas.
+			*/
+			
+			```
+		formatString: 0
+		displayFolder: 4. Cross Sell
+		lineageTag: 1ca18b23-0f04-4108-addb-fc6df697bce8
+
+	measure 'Produto Melhor Combinação' = ```
+			
+			
+			TOPN(1,
+			     VALUES(Tab_dProdutoCrossSell[Grupo Produto]), 
+			     [% Cross-Sell Confiança]
+			     )
+			
+			// A medida "Produto Melhor Combinação" identifica o grupo de produtos auxiliares que tem a melhor combinação com o grupo principal, com base na medida de confiança (% Cross-Sell Confiança).
+			
+			// TOPN(1, ...): É uma função DAX que retorna o item com o maior valor dentro de um conjunto de valores, neste caso, o grupo de ///////// produtos auxiliares com a melhor combinação.
+			// VALUES(dProdutoCrossSell[Grupo Produto]): É uma função DAX que retorna os valores únicos da coluna "Grupo Produto" da tabela ///////// "dProdutoCrossSell," que representa os grupos de produtos auxiliares no cross-sell.
+			// [% Cross-Sell Confiança]: Define a ordem de classificação para encontrar o grupo de produtos auxiliares com a melhor combinação com // base na medida de confiança.
+			
+			/*
+			TOPN(1, ...): É uma função DAX que retorna o item com o maior valor dentro de um conjunto de valores, neste caso, o grupo de produtos auxiliares com a melhor combinação.
+			VALUES(dProdutoCrossSell[Grupo Produto]): É uma função DAX que retorna os valores únicos da coluna "Grupo Produto" da tabela "dProdutoCrossSell," que representa os grupos de produtos auxiliares no cross-sell.
+			[% Cross-Sell Confiança]: Define a ordem de classificação para encontrar o grupo de produtos auxiliares com a melhor combinação com base na medida de confiança.
+			*/
+			
+			```
+		displayFolder: 4. Cross Sell
+		lineageTag: d35faafc-aace-47b6-9ce7-351c56aebe0b
+
+	measure '1 Medida de Meta / Gauge' = ```
+			
+			
+			/* --------------------------------------------------------------------------
+			DESENVOLVIDO POR JEFFERSON ALVES || DADOS CRIATIVOS 
+			
+			Redes Sociais
+			
+			► Instagram: https://www.instagram.com/dadoscriativos_/
+			
+			► Linkedin: https://www.linkedin.com/in/jeffersonallvesneves/
+			
+			► YouTube: https://www.youtube.com/c/JeffersonAlvesDadosCriativos
+			
+			► Grupo Telegram: https://t.me/dadoscriativos
+			
+			/*Passo a Passo:
+			
+			1° Adicionar o visual Novo Cartão;
+			2° Adicionar a medida Faturamento ao Cartão;
+			3° Em Layout Alinhamento Vertical para Cima (Primero);
+			4° Em Forma Retângulo de Cantos Arredodandos + 5;
+			5° Em Cartões Desabilitar o Preenchimento e Borda;
+			6° Criar uma nova Medida e colar o arquivo Gauge;
+			7° Selecionar o cartão e habilitar Imagem, Tipo da Imagem URL da Imagem;
+			8° Em Fx trazer a medida Gauge;
+			9° Em Tamanho colocar inicial alguma valor como 200;
+			10° Em posição colocar Inferior;
+			11° Altere VAR  vPorcentagem = 0, para VAR  vPorcentagem = [% Faturamento vs Meta];
+			12° Se quiser alterar o número de casa decimais é só acrescentar o ponto seguido de zero - VAR vPorcentagem_formatada = FORMAT( vPorcentagem, "0.00%" );
+			13° Altere o valor da VAR vValor_meta = 0, para VAR vValor_meta = [Total Meta];
+			14° Formatações.
+			
+			
+			 */
+			
+			-------------------------------------------------------------------------- */
+			
+			VAR  vPorcentagem = [% Faturamento vs Meta]
+			VAR vPorcentagem_formatada = FORMAT( vPorcentagem, "0%" ) 
+			
+			
+			VAR vValor_meta = [Total Meta]
+			VAR vValor_meta_formatado = FORMAT( vValor_meta, "R$ 0,0" ) 
+			
+			
+			-------------------------------------------------------------
+			--FORMATAÇÕES 
+			-------------------------------------------------------------
+			
+			-- Linha Divisória:
+			VAR Divisor_cor = "#254D71"
+			
+			-- Fonte dos textos e números:
+			VAR vFonte = "Calibri" 
+			
+			-- Cor da fonte (textos e números):
+			VAR vLabel_cor = "#000000"
+			
+			-- Cor dos marcadores (riscos |):
+			VAR vMarcadores_cor = "#888888" 
+			
+			-- Cor Satus e Barras:
+			VAR vBarra_abaixo_cor = "#E3FEF7"
+			VAR vBarra_medio_cor = "#AFF1E0"
+			VAR vBarra_acima_cor = "#4DBB9E"
+			
+			-- Tamanho da Cor das Barras: 
+			VAR vBarra_abaixo_posicao = 0.5
+			VAR vBarra_medio_posicao = 1
+			
+			-- Barra da Meta:
+			VAR vLinha_meta_posicao = 1
+			VAR vLinha_meta_cor = "#000000"
+			VAR vLinha_meta_espessura = 3
+			
+			-- Cor da Seta:
+			VAR vSeta_cor = "#404040" 
+			
+			-- Valor da porcentagem em relação à Meta:
+			VAR vPorcentagem_cor = "#404040"
+			VAR vPorcentagem_tam = 20
+			VAR vPorcentagem_posicao_vertical = 75
+			
+			-- Título da Meta: 
+			VAR vMeta_titulo = "Meta:  " 
+			
+			-- Tamanho do Valor da Meta:
+			VAR vMeta_label_tam = 10
+			
+			-- Título do Status:
+			VAR vStatus_titulo = "Status:" 
+			
+			-- Título dos Status
+			VAR vStatus_label_1 = "Abaixo" 
+			VAR vStatus_label_2 = "Médio" 
+			VAR vStatus_label_3 = "Alto"
+			VAR vStatus_label_tam = 10 
+			
+			
+			RETURN 
+			
+			
+			"data:image/svg+xml;utf8,<svg viewBox='0 0 285 150' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			<defs><style>#i16{transform: translateX(" & MIN( 229, MAX( 0, ROUND(vPorcentagem * 171, 0 ) ) ) & "px)}#i15{transform: translateX(" & MIN( 229, MAX( 0, ROUND(vLinha_meta_posicao * 171, 0 ) ) ) & "px) translateY(3px);}#i19{transform: translateY(15px)}#i20{transform: translatex(20px)}#i2{ transform: translateY(10px) } </style></defs><rect id='i1' x='0' y='0' width='285' height='1' fill='" & Divisor_cor & "' /><g id='Gauge'><g id='i2' > <g id='i3'><rect id='i4' x='25' y='28' width='229' height='14' fill='" & vBarra_acima_cor & "' /><rect id='i5' x='25' y='28' width='" & MIN( 229, MAX( 0, ROUND(vBarra_medio_posicao * 171, 0 ) ) ) & "' height='14' fill='" & vBarra_medio_cor & "' /><rect id='i6' x='25' y='28' width='" & MIN( 229, MAX( 0, ROUND(vBarra_abaixo_posicao * 171, 0 ) ) ) & "' height='14' fill='" & vBarra_abaixo_cor & "' /></g><path id='i7' d='M25 10L25 53' stroke='" & vMarcadores_cor & "' /><path id='i8' d='M254 11L254 53' stroke='" & vMarcadores_cor & "' /><path id='i9' d='M196 11L196 53' stroke='" & vMarcadores_cor & "' /><path id='i10' fill-rule='evenodd' clip-rule='evenodd' d='M27.5 27L27.5 22H28.5L28.5 27H27.5ZM30.5 27L30.5 22H31.5L31.5 27H30.5ZM33.5 22L33.5 27H34.5L34.5 22H33.5ZM36.5 27V22H37.5V27H36.5ZM39.5 22V27H40.5V22H39.5ZM42.5 27V22H43.5V27H42.5ZM45.5 22V27H46.5V22H45.5ZM48.5 27V22H49.5V27H48.5ZM51.5 22V27H52.5V22H51.5ZM54.5 27V22H55.5V27H54.5ZM57.5 22V27H58.5V22H57.5ZM60.5 27V22H61.5V27H60.5ZM63.5 22V27H64.5V22H63.5ZM66.5 27V22H67.5V27H66.5ZM69.5 22V27H70.5V22H69.5ZM72.5 27V22H73.5V27H72.5ZM75.5 22V27H76.5V22H75.5ZM78.5 27V22H79.5V27H78.5ZM81.5 22V27H82.5V22H81.5ZM84.5 27V22H85.5V27H84.5ZM87.5 22V27H88.5V22H87.5ZM90.5 27V22H91.5V27H90.5ZM93.5 22V27H94.5V22H93.5ZM96.5 27V22H97.5V27H96.5ZM99.5 22V27H100.5V22H99.5ZM102.5 27V22H103.5V27H102.5ZM105.5 22V27H106.5V22H105.5ZM108.5 27V22H109.5V27H108.5ZM111.5 22V27H112.5V22H111.5ZM114.5 27V22H115.5V27H114.5ZM117.5 22V27H118.5V22H117.5ZM120.5 27V22H121.5V27H120.5ZM123.5 22V27H124.5V22H123.5ZM126.5 27V22H127.5V27H126.5ZM129.5 22V27H130.5V22H129.5ZM132.5 27V22H133.5V27H132.5ZM135.5 22V27H136.5V22H135.5ZM138.5 27V22H139.5V27H138.5ZM141.5 22V27H142.5V22H141.5ZM144.5 27V22H145.5V27H144.5ZM147.5 22V27H148.5V22H147.5ZM150.5 27V22H151.5V27H150.5ZM153.5 22V27H154.5V22H153.5ZM156.5 27V22H157.5V27H156.5ZM159.5 22V27H160.5V22H159.5ZM162.5 27V22H163.5V27H162.5ZM165.5 22V27H166.5V22H165.5ZM168.5 27V22H169.5V27H168.5ZM171.5 22V27H172.5V22H171.5ZM174.5 27V22H175.5V27H174.5ZM177.5 22V27H178.5V22H177.5ZM180.5 27V22H181.5V27H180.5ZM183.5 22V27H184.5V22H183.5ZM186.5 27V22H187.5V27H186.5ZM189.5 22V27H190.5V22H189.5ZM192.5 27V22H193.5V27H192.5ZM195.5 22V27H196.5V22H195.5ZM198.5 27V22H199.5V27H198.5ZM201.5 22V27H202.5V22H201.5ZM204.5 27V22H205.5V27H204.5ZM207.5 22V27H208.5V22H207.5ZM210.5 27V22H211.5V27H210.5ZM213.5 22V27H214.5V22H213.5ZM216.5 27V22H217.5V27H216.5ZM219.5 22V27H220.5V22H219.5ZM222.5 27V22H223.5V27H222.5ZM225.5 22V27H226.5V22H225.5ZM228.5 27V22H229.5V27H228.5ZM231.5 22V27H232.5V22H231.5ZM234.5 27V22H235.5V27H234.5ZM237.5 22V27H238.5V22H237.5ZM240.5 27V22H241.5V27H240.5ZM243.5 22V27H244.5V22H243.5ZM246.5 27V22H247.5V27H246.5ZM249.5 22V27H250.5V22H249.5Z' fill='" & vMarcadores_cor & "' /><g id='i11'><text id='i12' fill='" & vLabel_cor & "' font-family='" & vFonte & "' font-size='10' font-weight='600' ><tspan x='28' y='16.585'>0</tspan></text><text id='i13' fill='" & vLabel_cor & "' font-family='" & vFonte & "' font-size='10' font-weight='600' ><tspan x='176' y='16.585'>100</tspan></text><text id='i14' fill='" & vLabel_cor & "' font-family='" & vFonte & "' font-size='10' font-weight='600' ><tspan x='230' y='16.585'>Max</tspan></text></g><path id='i15' d='M25 22L25 42' stroke='" & vLinha_meta_cor & "' stroke-width='" & vLinha_meta_espessura & "' /><g id='i16'><path id='i17' d='M25 41L32.7942 54.5H17.2058L25 41Z' fill='" & vSeta_cor & "' /><text id='i18' fill=' " & vPorcentagem_cor & "' font-family='" & vFonte & "' font-size='" & vPorcentagem_tam & "' font-weight='600' ><tspan x='10' y='" & vPorcentagem_posicao_vertical & "'>" & vPorcentagem_formatada & "</tspan></text></g></g><g id='i19'><g id='i20' ><g id='group 73'><text id='label_abaixo' fill='" & vLabel_cor& "' font-family='" & vFonte & "' font-size='" & vStatus_label_tam & "' font-weight='600' ><tspan x='82' y='118.235'>" & vStatus_label_1 & "</tspan></text><rect id='quadro_abaixo' x='69' y='109' width='10' height='10' rx='2' fill='" & vBarra_abaixo_cor & "' /></g><g id='Group 72'><text id='label_medio' fill='" & vLabel_cor& "' font-family='" & vFonte & "' font-size='" & vStatus_label_tam & "' font-weight='600' ><tspan x='152' y='118.235'>" & vStatus_label_2 & "</tspan></text><rect id='i94' x='139' y='109' width='10' height='10' rx='2' fill='" & vBarra_medio_cor & "' /></g><g id='Group 71'><text id='195' fill='" & vLabel_cor & "' font-family='" & vFonte & "' font-size='" & vStatus_label_tam & "' font-weight='600' ><tspan x='218' y='118.235'>" & vStatus_label_3 & "</tspan></text><rect id='i96' x='205' y='109' width='10' height='10' rx='2' fill='" & vBarra_acima_cor & "' /></g></g><text id='197' fill='" & vLabel_cor  & "' font-family='" & vFonte & "' font-size='10' font-weight='600' text-anchor='end' ><tspan x='75' y='116.585'> " & vStatus_titulo & " </tspan></text><text id='i98' fill='" & vLabel_cor & "' font-family='" & vFonte & "' font-size='10' font-weight='600'  text-anchor='end'><tspan x='75' y='94.585'> " & vMeta_titulo & " </tspan></text><text id='i99' fill='" & vLabel_cor & "' 
+			font-family='" & vFonte & "' font-size='" & vMeta_label_tam & "' font-weight='600' ><tspan x='89' y='94.585'>" & vValor_meta_formatado & "</tspan></text><path id='i100' d='M37 93H22' stroke='" & vLinha_meta_cor & "' stroke-width='2' /></g></g></svg> "
+			```
+		displayFolder: 2. Meta
+		lineageTag: 9690161f-e74a-468b-b302-d83bd15ea7ef
+
+	measure '1 Rank Faturado Produto' = ```
+			
+			
+			-- 1° Precisamos criar um Rank.
+			
+			RANKX(ALLSELECTED(dim_Produto),
+			      [Faturamento], ,DESC, Dense
+			      )
+			
+			// A medida "Rank Faturado Produto" atribui um ranking aos produtos com base no faturamento, em ordem decrescente e considerando todos os produtos selecionados, incluindo produtos filtrados.
+			
+			// RANKX: É uma função DAX que calcula a classificação de valores dentro de um conjunto de dados.
+			// ALLSELECTED(dProduto): Remove quaisquer filtros aplicados à tabela "dProduto" e considera todos os produtos selecionados em um contexto.
+			// [Faturamento]: É o valor que será classificado, ou seja, o faturamento dos produtos.
+			// DESC: Indica que a classificação deve ser em ordem decrescente, do maior para o menor faturamento.
+			// Dense: Especifica que, em caso de empate, os mesmos ranks não serão repetidos, pulando para o próximo número disponível.
+			
+			/*
+			A medida "Rank Faturado Produto" é usada para classificar os produtos com base no faturamento, considerando todos os produtos selecionados e garantindo que os ranks não se repitam em caso de empate. Isso ajuda a identificar os produtos mais lucrativos em relação ao faturamento.
+			*/
+			
+			```
+		formatString: 0
+		displayFolder: 6. Pareto
+		lineageTag: 2ac466a7-94ee-4b03-afa0-fbec3907e890
+
+	measure '2 Rank Acum Faturado Produto' = ```
+			
+			
+			-- 2° Faremos o Acumulado utilizando o Rank como referência 
+			
+			CALCULATE([Faturamento],
+			          TOPN([1 Rank Faturado Produto],
+			               ALLSELECTED(dim_Produto),
+			               [Faturamento],DESC
+			               )
+			          )
+			
+			
+			// A medida "Faturamento do Produto Melhor Classificado" calcula o faturamento do produto que está no topo da classificação (com o maior faturamento) com base na medida "1 Rank Faturado Produto".
+			
+			/*
+			CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			[Faturamento]: É a medida que representa o faturamento dos produtos.
+			TOPN([1 Rank Faturado Produto], ...): Retorna o valor do faturamento do produto que ocupa a primeira posição na classificação, conforme determinado pela medida "1 Rank Faturado Produto."
+			ALLSELECTED(dProduto): Remove quaisquer filtros aplicados à tabela "dProduto" e considera todos os produtos selecionados em um contexto.
+			[Faturamento], DESC: Classifica o faturamento em ordem decrescente para que o produto com o maior faturamento esteja no topo.
+			*/
+			
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 6. Pareto
+		lineageTag: 9cb612c3-eceb-4531-9260-a0569494397f
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '3 Rank Pct Acum Faturado Produto' = ```
+			
+			
+			-- 3° Passo é calcular o Faturamento Acumulado 
+			
+			 VAR vValorTotal = CALCULATE([Faturamento],ALLSELECTED(dim_Produto)) 
+			VAR vRankAcum = [2 Rank Acum Faturado Produto]
+			VAR vResultado = DIVIDE(vRankAcum,vValorTotal)
+			
+			RETURN
+			vResultado
+			
+			// A medida "3 Rank Pct Acum Faturado Produto" calcula a porcentagem do faturamento acumulado de um produto em relação ao faturamento total, com base no terceiro passo que envolve o cálculo do faturamento acumulado.
+			
+			/*
+			CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			[Faturamento]: É a medida que representa o faturamento dos produtos.
+			ALLSELECTED(dProduto): Remove quaisquer filtros aplicados à tabela "dProduto" e considera todos os produtos selecionados em um contexto.
+			[2 Rank Acum Faturado Produto]: Refere-se ao segundo passo do cálculo que envolve o faturamento acumulado dos produtos.
+			DIVIDE(vRankAcum, vValorTotal): Calcula a divisão do faturamento acumulado do produto pelo faturamento total.
+			RETURN vResultado: Retorna o resultado da divisão como a porcentagem de faturamento acumulado do produto em relação ao faturamento total.
+			*/
+			
+			// A medida "3 Rank Pct Acum Faturado Produto" é parte de um processo que calcula a porcentagem do faturamento acumulado de um produto específico em relação ao faturamento total. O terceiro passo envolve o cálculo da porcentagem com base no segundo passo, que calcula o faturamento acumulado. Isso ajuda a entender a contribuição percentual de um produto para o faturamento total.
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 6. Pareto
+		lineageTag: 56da10d6-35ab-4da9-b1b9-f4ebd7304671
+
+		changedProperty = FormatString
+
+	measure '4 Qtd.Produtos Pareto' = ```
+			
+			
+			-- 4° Queremos saber a quantidade de produtos pareto, ou seja, quantos produtos tem um impacto de 80% sobre o faturamento. Para responder a estas perguntas: 
+			-- Qual é o percentual dos produtos que representam 80% do faturamento?
+			-- Quais são estes produtos?
+			-- Com essa medida queremos pegar qual é posição do Rank que representa 80%
+			
+			-- A lógica foi a seguinte: 
+			-- 1° Precisamos replicar a tabela com as colunas produto, rank, acumulado do faturamento, percentual do faturamento acumulado e percutual acumulado pareto, tudo isso replicado numa tabela. A função que replica/cria uma tabela virtual é a ADDCOLUMNS. O simbolo @ é utilizado para identificar que este campo é de uma tabela virtual.
+			-- 2° Agora queremos Filtrar a tabela, utilizando como critério o percentual. Precismos fazer a pergunta: é menor ou igual a 80% (que é o percentual pareto), trás o valor dessa última posição. Esse filtro vai trazer toda a tabela filtrada com o valores menores que o percentual pareto, porém não queremos toda essa tabela, queremos somente a última posição, queremos saber qual foi o último produto no rank que representa 80%.
+			 -- 3° E como queremos a última posição, ou seja, o último produto do rank que representa 80% utilizaremos a função MAXX que recebe uma tabela filtrada, e queremos retornar o máximo do quê? O máximo do Rank dessa tabela virtual.
+			  -- 4° O resultado esperado é que ele nos mostre através de um Cartão a última posição que representa os 80%
+			
+			VAR vPct_Pareto = [9 Seleção Pareto]
+			VAR vResultado = 
+			MAXX(
+			    FILTER(
+			           ADDCOLUMNS(
+			                      ALLSELECTED(dim_Produto[cdProduto]),
+			                      "@RANK",[1 Rank Faturado Produto],
+			                      "@VALOR",[2 Rank Acum Faturado Produto],
+			                      "@PCT",[3 Rank Pct Acum Faturado Produto]
+			                      ),
+			            [@PCT]<= vPct_Pareto
+			           ),
+			    [@RANK]
+			     )
+			
+			RETURN
+			vResultado
+			
+			```
+		formatString: 0
+		displayFolder: 6. Pareto
+		lineageTag: 97e42b72-fd0f-41e1-b30f-54e92320b77a
+
+	measure '5 Pct Pareto' = ```
+			
+			
+			-- 5° Calcularemos o percentual pareto que esses produtos que representam 80% do faturamento da empresa. Dividimos a quantidade de produtos dos 80% pela quantidade de produtos que foram vendidos/positivação ou cobertura dos produtos ( quantidade de produtos abaixo de 80% dividido pelo produtos que foram vendidos)
+			
+			DIVIDE([4 Qtd.Produtos Pareto],
+			       [Quantidade de Linhas (Vendas)])
+			
+			// A medida "5 Pct Pareto" calcula o percentual de produtos que representam 80% do faturamento da empresa em relação ao número total de produtos vendidos ou à cobertura de produtos.
+			
+			/*
+			DIVIDE: É uma função DAX que calcula a divisão de dois valores.
+			[4 Qtd.Produtos Pareto]: Representa a quantidade de produtos que fazem parte do grupo Pareto, ou seja, que representam 80% do faturamento.
+			[Quantidade de Linhas (Vendas)]: Indica o número total de produtos vendidos ou a cobertura de produtos, ou seja, a quantidade total de produtos envolvidos nas vendas.
+			*/
+			
+			// A medida "5 Pct Pareto" é usada para calcular o percentual de produtos que fazem parte do grupo Pareto, ou seja, aqueles que representam 80% do faturamento total da empresa, em relação ao número total de produtos vendidos ou à cobertura de produtos. Essa medida ajuda a identificar a contribuição dos produtos mais importantes para o faturamento em relação ao universo total de produtos vendidos ou cobertos.
+			
+			```
+		formatString: 0%;-0%;0%
+		displayFolder: 6. Pareto
+		lineageTag: c40dd3ff-c34d-4d9b-9eb3-f644a2ceed74
+
+		changedProperty = FormatString
+
+	measure '1 Qtd.produtos Curva ABC' = ```
+			
+			
+			-- 1° Criar a Tabela Curva ABC com os limites dos grupos;
+			-- 2° Cria a medida Qtd produtos Curva ABC
+			
+			CALCULATE(
+			          [Quantidade de Linhas (Vendas)], 
+			          KEEPFILTERS(
+			                      FILTER(
+			                             ADDCOLUMNS(
+			                                        ALLSELECTED(dim_Produto),
+			                                        "@RANK",[1 Rank Faturado Produto],
+			                                        "@VALOR",[2 Rank Acum Faturado Produto],
+			                                        "@PCT",[3 Rank Pct Acum Faturado Produto]
+			                                        ),
+			                            [@PCT]>MIN('Tab_Curva ABC'[Liminf]) &&
+			                            [@PCT]<=MAX('Tab_Curva ABC'[LimSup])
+			                            )
+			                     )
+			          )
+			
+			// A medida calcula a quantidade de linhas (vendas) mantendo os filtros aplicados a produtos que atendem aos critérios de uma curva ABC, que são determinados pelos valores "Liminf" e "LimSup" na tabela "Tab_Curva ABC."
+			
+			/*
+			CALCULATE: É uma função DAX que permite alterar o contexto de cálculo de uma medida.
+			[Quantidade de Linhas (Vendas)]: É a medida que representa a quantidade de vendas ou linhas de transação.
+			KEEPFILTERS: Mantém os filtros aplicados aos produtos enquanto calcula a medida.
+			FILTER: Filtra os produtos com base em critérios específicos.
+			ADDCOLUMNS: Adiciona colunas calculadas a uma tabela.
+			ALLSELECTED(dProduto): Remove quaisquer filtros aplicados à tabela "dProduto" e considera todos os produtos selecionados em um contexto.
+			[@PCT]>MIN('Tab_Curva ABC'[Liminf]) && [@PCT]<=MAX('Tab_Curva ABC'[LimSup]): Define os critérios da curva ABC, onde [@PCT] (uma coluna calculada) deve estar entre os valores "Liminf" e "LimSup" na tabela "Tab_Curva ABC."
+			*/
+			
+			// A medida calcula a quantidade de linhas (vendas) mantendo os filtros aplicados a produtos que atendem aos critérios de uma curva ABC. Os critérios são determinados pelos valores "Liminf" e "LimSup" na tabela "Tab_Curva ABC." Isso ajuda a identificar a quantidade de vendas relacionadas aos produtos que se enquadram em uma determinada categoria da curva ABC, como os produtos mais importantes em termos de faturamento.
+			```
+		formatString: 0
+		displayFolder: 7. Curva ABC
+		lineageTag: 142ed404-06c2-4bec-bc2a-3f068a1a8bd1
+
+	measure '2 Faturamento Curva ABC' = ```
+			
+			
+			CALCULATE(
+			          [Faturamento], 
+			          KEEPFILTERS(
+			                      FILTER(
+			                             ADDCOLUMNS(
+			            ALLSELECTED(dim_Produto),
+			            "@RANK",[1 Rank Faturado Produto],
+			            "@VALOR",[2 Rank Acum Faturado Produto],
+			            "@PCT",[3 Rank Pct Acum Faturado Produto]
+			            ),
+			            [@PCT]>MIN('Tab_Curva ABC'[Liminf]) &&
+			            [@PCT]<=MAX('Tab_Curva ABC'[LimSup])
+			                      )
+			          )
+			)
+			```
+		displayFolder: 7. Curva ABC
+		lineageTag: 6846b583-a581-4d4f-820a-29cf56e4a96b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '3 Grupo A' = ```
+			
+			
+			VAR vPct_inicial = 0.80
+			VAR vResultado = 
+			CALCULATE(
+			          [Faturamento], 
+			          KEEPFILTERS(
+			                      FILTER(
+			                             ADDCOLUMNS(
+			            ALLSELECTED(dim_Produto),
+			            "@RANK",[1 Rank Faturado Produto],
+			            "@VALOR",[2 Rank Acum Faturado Produto],
+			            "@PCT",[3 Rank Pct Acum Faturado Produto]
+			            ),
+			            [@PCT]<=vPct_inicial                      
+			          )))
+			Return
+			vResultado
+			
+			```
+		formatString: 0
+		displayFolder: 7. Curva ABC
+		lineageTag: 3232e0c7-e390-4ab5-bc86-533f6dd0480e
+
+	measure '8 Diferença Valor Pareto Dinâmico' = ```
+			
+			
+			VAR vFaturamentoTotal = CALCULATE([Faturamento],
+			                                  ALLSELECTED(dim_Calendario)
+			                                  )
+			
+			Var vTotal = vFaturamentoTotal - [7 Faturamento Acumulado Pareto]
+			
+			RETURN 
+			
+			vTotal 
+			
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 6. Pareto
+		lineageTag: d072e491-1117-4bf2-98cf-37e1cf0847aa
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '7 Faturamento Acumulado Pareto' = ```
+			
+			
+			-- 7° Explicar como o Waff funciona porque ele soma as duas medidas para encontrar um valor total e a última medida é dividida pelo valor total, assim temos a porcentagem. Explicar porque foi feito essa medida
+			
+			VAR vPct_Pareto = [9 Seleção Pareto]
+			VAR vResultado = 
+			MAXX(
+			    FILTER(
+			           ADDCOLUMNS(
+			                      ALLSELECTED(dim_Produto[cdProduto]),
+			                      "@VALOR",[2 Rank Acum Faturado Produto],
+			                      "@PCT",[3 Rank Pct Acum Faturado Produto]
+			                      ),
+			            [@PCT]<= vPct_Pareto
+			           ),
+			    [@VALOR]
+			     )
+			
+			RETURN
+			vResultado
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 6. Pareto
+		lineageTag: e8000ad8-2e71-4960-b3fd-43b4906dd3c6
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '6 Diferença Qtd Produtos Pareto' = ```
+			
+			
+			[Positivação ou Cobertura] - [4 Qtd.Produtos Pareto]
+			
+			```
+		formatString: 0
+		displayFolder: 6. Pareto
+		lineageTag: a1d8defb-4950-4f63-b068-b5fc5c21f5fc
+
+	measure '9 Seleção Pareto' = ```
+			
+			
+			-- 1° Criar a Tabela Seleção Pareto;
+			-- 2° Criar Segmentação e colocar a coluna Intervalo Pareto e alterar para o formato porcentagem em ferramentas de medida;
+			-- 3° Desenvolver a medida 9 Seleção Pareto pegando a coluna Valor da tabela seleção pareto;
+			-- 4° Trocar o valor fixo 0.8 da medida 4 Qtd Pareto.... e 7 Faturamento.....pela medida 9 Seleção Pareto.
+			
+			SELECTEDVALUE('Tab_Sel_ Pareto'[Valor])
+			
+			```
+		displayFolder: 6. Pareto
+		lineageTag: 8f202fd5-dc51-4dc8-95b9-10a5469f0f1d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '4 Qtd.Produtos Pareto Fixo' = ```
+			
+			
+			-- 4° Queremos saber a quantidade de produtos pareto, ou seja, quantos produtos tem um impacto de 80% sobre o faturamento. Para responder a estas perguntas: 
+			-- Qual é o percentual dos produtos que representam 80% do faturamento?
+			-- Quais são estes produtos?
+			-- Com essa medida queremos pegar qual é posição do Rank que representa 80%
+			
+			-- A lógica foi a seguinte: 
+			-- 1° Precisamos replicar a tabela com as colunas produto, rank, acumulado do faturamento, percentual do faturamento acumulado e percutual acumulado pareto, tudo isso replicado numa tabela. A função que replica/cria uma tabela virtual é a ADDCOLUMNS. O simbolo @ é utilizado para identificar que este campo é de uma tabela virtual.
+			-- 2° Agora queremos Filtrar a tabela, utilizando como critério o percentual. Precismos fazer a pergunta: é menor ou igual a 80% (que é o percentual pareto), trás o valor dessa última posição. Esse filtro vai trazer toda a tabela filtrada com o valores menores que o percentual pareto, porém não queremos toda essa tabela, queremos somente a última posição, queremos saber qual foi o último produto no rank que representa 80%.
+			 -- 3° E como queremos a última posição, ou seja, o último produto do rank que representa 80% utilizaremos a função MAXX que recebe uma tabela filtrada, e queremos retornar o máximo do quê? O máximo do Rank dessa tabela virtual.
+			  -- 4° O resultado esperado é que ele nos mostre através de um Cartão a última posição que representa os 80%
+			
+			VAR vPct_Pareto = 0.8
+			VAR vResultado = 
+			MAXX(
+			    FILTER(
+			           ADDCOLUMNS(
+			                      ALLSELECTED(dim_Produto[cdProduto]),
+			                      "@RANK",[1 Rank Faturado Produto],
+			                      "@VALOR",[2 Rank Acum Faturado Produto],
+			                      "@PCT",[3 Rank Pct Acum Faturado Produto]
+			                      ),
+			            [@PCT]<= vPct_Pareto
+			           ),
+			    [@RANK]
+			     )
+			
+			RETURN
+			vResultado
+			
+			```
+		formatString: 0
+		displayFolder: 7. Curva ABC
+		lineageTag: d6076cd7-d1cc-4038-8c57-25e52c1ab839
+
+	measure '5 Faturamento Acumulado Pareto Fixo' = ```
+			
+			
+			-- 7° Explicar como o Waff funciona porque ele soma as duas medidas para encontrar um valor total e a última medida é dividida pelo valor total, assim temos a porcentagem. Explicar porque foi feito essa medida
+			
+			VAR vPct_Pareto = 0.8
+			VAR vResultado = 
+			MAXX(
+			    FILTER(
+			           ADDCOLUMNS(
+			                      ALLSELECTED(dim_Produto[cdProduto]),
+			                      "@VALOR",[2 Rank Acum Faturado Produto],
+			                      "@PCT",[3 Rank Pct Acum Faturado Produto]
+			                      ),
+			            [@PCT]<= vPct_Pareto
+			           ),
+			    [@VALOR]
+			     )
+			
+			RETURN
+			vResultado
+			```
+		displayFolder: 7. Curva ABC
+		lineageTag: cc77d573-83d5-4a86-86f4-b93cf4c862e5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '6 Subtítulo' = ```
+			
+			[4 Qtd.Produtos Pareto Fixo] & " Produtos representam 80% do faturamento no total de " & FORMAT([5 Faturamento Acumulado Pareto Fixo], "R$ #,#00.00") &
+			UNICHAR(10) &
+			"Qtd A: " & [8 Qtd de Produtos A] & " - Qtd B: " & [9 Qtd de Produtos B] & " - Qtd C: " & [10 Qtd de Produtos C] 
+			
+			```
+		displayFolder: 7. Curva ABC
+		lineageTag: b22fb2df-4ef8-445a-80ae-c6d5df1eab0a
+
+	measure '7 Classificação ABC' =
+			
+			
+			-- 1° Alterar a cor da fonte: Criar um visual/clicar na medida ABC/formatação condicional/cor da fonte;
+			-- 2° Alterar a cor da fonte: Formato/Elementos da Célula/Série ABC/Cor da Fonte;
+			-- 3° Altera a cor da Barras: Formato/Colunas/Fx/alterar o campo para a medica 7 Classificação ABC.
+			
+			IF(
+			    ISINSCOPE(dim_Produto[Produto]),
+			    SWITCH(
+			           TRUE(),
+			           [3 Rank Pct Acum Faturado Produto] <=0.8, "A",
+			           [3 Rank Pct Acum Faturado Produto] <= 0.95, "B",
+			           "C"
+			           )
+			)
+		displayFolder: 7. Curva ABC
+		lineageTag: 685c611f-ece0-40d8-93d7-7b2b8e5c2a3b
+
+	measure '8 Qtd de Produtos A' =
+			
+			
+			COUNTROWS(
+			          FILTER(
+			                 VALUES(dim_Produto[Produto]),
+			                 [7 Classificação ABC] = "A"
+			                )
+			         )
+		formatString: 0
+		displayFolder: 7. Curva ABC
+		lineageTag: 4737dccc-624f-405c-a123-d089aec95d4f
+
+	measure '9 Qtd de Produtos B' =
+			
+			
+			COUNTROWS(
+			          FILTER(
+			                 VALUES(dim_Produto[Produto]),
+			                 [7 Classificação ABC] = "B"
+			                )
+			         )
+		formatString: 0
+		displayFolder: 7. Curva ABC
+		lineageTag: c6fff8a0-219c-4e41-9fe2-c624d0fad4d3
+
+	measure '10 Qtd de Produtos C' = ```
+			
+			
+			-- Contagem de Produtos da Classificação "C" com Faturamento Maior que Zero.
+			VAR FaturamentoAtual = [Faturamento]
+			
+			RETURN
+			IF(FaturamentoAtual > 0,
+			    COUNTROWS(
+			        FILTER(
+			            VALUES(dim_Produto[Produto]),
+			            [7 Classificação ABC] = "C" && [Faturamento] > 0
+			        )
+			    ),
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		displayFolder: 7. Curva ABC
+		lineageTag: dc080e74-533a-4911-bd8b-5678b0b6d07a
+
+	measure '11 Faturamaneto Produto A' =
+			
+			
+			CALCULATE(
+			          [Faturamento],
+			          FILTER(VALUES(dim_Produto[Produto]),
+			                 [7 Classificação ABC]= "A"
+			                )
+			          )
+		displayFolder: 7. Curva ABC
+		lineageTag: 7f075e8b-bc64-4a7a-b1a1-b590b939c057
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '12 Faturamento Produto B' =
+			
+			
+			CALCULATE(
+			          [Faturamento],
+			          FILTER(
+			                 VALUES(dim_Produto[Produto]),
+			                 [7 Classificação ABC] = "B"
+			                 )
+			          )
+		displayFolder: 7. Curva ABC
+		lineageTag: 20504065-6530-4c5b-8df0-809e9d025c50
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '13 Faturamento Produto C' =
+			
+			
+			CALCULATE(
+			          [Faturamento],
+			          FILTER(
+			                 VALUES(dim_Produto[Produto]),
+			                 [7 Classificação ABC] = "C"
+			                )
+			        )
+		displayFolder: 7. Curva ABC
+		lineageTag: 080566fd-8efa-4678-8019-f78435f4e101
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '14 % Faturamaneto Produto A' =
+			
+			
+			DIVIDE([11 Faturamaneto Produto A],
+			       [Faturamento]
+			       )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 7. Curva ABC
+		lineageTag: 53280665-d476-4b74-b187-0c338b008f08
+
+	measure '15 % Faturamaneto Produto B' =
+			
+			
+			DIVIDE([12 Faturamento Produto B],
+			       [Faturamento]
+			       )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 7. Curva ABC
+		lineageTag: 508b93af-ac0b-4daf-9908-b94f8bc49320
+
+	measure '16 % Faturamaneto Produto C' =
+			
+			
+			DIVIDE([13 Faturamento Produto C],
+			       [Faturamento]
+			       )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 7. Curva ABC
+		lineageTag: 960fc369-c6e5-495a-b86f-dd5ef8bc9218
+
+	measure '1 Faturamento Forecasting' = ```
+			
+			
+			VAR Ano1 = CALCULATE(
+			    [Faturamento],
+			    DATEADD(dim_Calendario[Data], -1, YEAR)
+			)
+			
+			VAR Ano2 = CALCULATE(
+			    [Faturamento],
+			    DATEADD(dim_Calendario[Data], -2, YEAR)
+			)
+			
+			VAR vForecasting = DIVIDE(Ano1 + Ano2, 2)
+			
+			VAR AnoSelecionado = MAX(dim_Calendario[Ano])
+			
+			VAR UltimoAno = CALCULATE(MAX(dim_Calendario[Ano]), ALL(dim_Calendario))
+			
+			RETURN
+			IF(
+			    AnoSelecionado = UltimoAno,
+			    vForecasting,
+			    BLANK()
+			)
+			
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 8. Forecasting
+		lineageTag: 7b1ec31b-ae79-4ee8-a10b-e47ef053b978
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '2 % Faturamento YoY/ Variação Percentual do Faturamento em Relação ao Ano Anterior  Ano 2018' = ```
+			
+			
+			 CALCULATE([% Faturamento YoY/ Variação Percentual do Faturamento em Relação ao Ano Anterior],
+			           ALL(dim_Calendario),
+			           dim_Calendario[Ano] = 2018
+			 )
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Forecasting
+		lineageTag: bab8ba81-6288-4246-9105-029570b6b86a
+
+	measure '3 Faturamento Forecasting com Variável' =
+			
+			
+			[1 Faturamento Forecasting] + ([1 Faturamento Forecasting]*[2 % Faturamento YoY/ Variação Percentual do Faturamento em Relação ao Ano Anterior  Ano 2018])
+		displayFolder: 8. Forecasting
+		lineageTag: 86690a8b-d435-428c-b7ea-5370271e9c00
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Acumulado' = ```
+			
+			
+			VAR vDataAtual = MAX(dim_Calendario[Data])
+			
+			RETURN 
+			
+			CALCULATE(
+			          [Faturamento],
+			          FILTER(
+			                 ALLSELECTED(dim_Calendario),
+			                 dim_Calendario[Data] <= vDataAtual
+			                )
+			           )
+			```
+		displayFolder: 1. Inteligência Tempo
+		lineageTag: c69f9edb-2934-4bef-a834-9fa09b91c9c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '3 Qtd Meses Acumulado 2019' = ```
+			
+			
+			VAR vMesesFaturamento = CALCULATE(
+			                                  DISTINCTCOUNT(dim_Calendario[Nome do Mês]),
+			                                  FILTER(
+			                                          ALL(dim_Calendario),
+			                                          [Faturamento] > 0
+			                                         )
+			                                   )
+			
+			RETURN 
+			
+			vMesesFaturamento
+			```
+		formatString: 0
+		displayFolder: 2. Meta
+		lineageTag: bb6055b3-f134-45d8-9687-4c474ee3e198
+
+	measure '2 Faturamento Acumulado' =
+			
+			VAR MaxAno2019 = MAXX(FILTER(ALL(dim_Calendario), YEAR(dim_Calendario[Data]) = 2019), [Data])
+			RETURN
+			CALCULATE(
+			    [Faturamento],
+			    FILTER(
+			        ALL(dim_Calendario),
+			        [Data] <= MaxAno2019
+			    )
+			)
+		displayFolder: 2. Meta
+		lineageTag: e0b8de7b-dd44-42ad-972b-0bf33c74a745
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Últimos 3 Meses' = ```
+			
+			CALCULATE(
+			          [Faturamento],
+			          DATESINPERIOD(dim_Calendario[Data],
+			                        MAX(dim_Calendario[Data]),
+			                        -3,
+			                        MONTH
+			                        ),
+			                        dim_Calendario[Ano] = MAX(dim_Calendario[Ano])
+			           )
+			
+			
+			```
+		displayFolder: 8. Forecasting
+		lineageTag: 15eb049e-07d3-477c-8e4a-d48e7c772dcd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Número de Meses' = ```
+			
+			
+			-- Ainda não consegui calcular o acumulado do somatório de meses que deveria ser 3 para usar no calculo seguinte.
+			-- O vídeo do cálculo esta abaixo:
+			-- https://www.youtube.com/watch?v=F7ABXQBp4SE&t=462s 
+			
+			CALCULATE(
+			          COUNTROWS(dim_Calendario),
+			          DATESINPERIOD(dim_Calendario[Data],
+			                        MAX(dim_Calendario[Data]),
+			                        -3,
+			                        MONTH
+			                        ),
+			                        dim_Calendario[Ano] = MAX(dim_Calendario[Ano])
+			           )
+			```
+		formatString: 0
+		displayFolder: 8. Forecasting
+		lineageTag: c407443a-5d3a-4100-9d5f-751ffd1c2b4b
+
+	measure '0 Dica' =
+			
+			
+			// Na aula: 18 -  Inteligência Temporal - Módulo: Linguagem DAX
+			// O Laender remove os espaços em branco para realizar o cálculo, teste nas fórmulas de previsão.
+			
+			// Na aula: 22 - Inteligência Temporal - Períodos Móveis - Módulo: Linguagem DAX
+			// Ele cria um período específico.
+			
+			// Na aula: 2 - Data expert e Medida: 08. Fator Vendedor (15 - Dashboard Comercial)
+			// Ele cria uma contagem, tirando e devolvendo o contexto.
+		formatString: 0
+		displayFolder: 8. Forecasting
+		lineageTag: e4c36f32-5617-41a3-bafe-bdf4dd85dce1
+
+	measure '9.1 Parâmetro Local' = ```
+			
+			
+			-- Siga os passos abaixo para criar o Parâmetro Local, ele também está descrito no proprio parâmetro local, para acessar é só abrir o Power Query Selecionar o parâmetro local criado e selecionar gerenciar parâmetro. 
+			
+			/*
+			
+			1° Abrir Power Query;
+			2° Clicar Gerenciar Parâmetros ou Clicar com o direito em Consultas/Selecionar Novo Parâmetro;
+			3° Inserir Nome: Fonte Local ou Parâmetro Local ou Endereço;
+			4° Tipo: Texto ou Qualquer;
+			5° Valores Sugeridos: Qualquer Valor;
+			6° Valor Atual: Copiar o caminho local das pastas com os arquivos e coloque no Valor Atual/Clicar OK;
+			7° Selecione a tabela/Fonte ou Selecione a tabela/Clique com o direito e Consulta Avançada;
+			8° File.Contents( apagar tudo antes da contra-barra(\) deixe somente  "\nome do arquivo"
+			9° Descreva isso com o nome do parâmetro #"Fonte Local" &
+			10° Siga os procedimentos 7°, 8° e 9° para as outras tabelas locais.
+			
+			*/
+			```
+		formatString: 0
+		displayFolder: 9. Técnicas
+		lineageTag: 359630a2-3952-41ac-85f4-71152ff00eb9
+
+	partition _Medidas-861be3a3-b9ec-432d-abf7-d632950ddf80 = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

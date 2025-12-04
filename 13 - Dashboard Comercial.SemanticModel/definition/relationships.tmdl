@@ -1,0 +1,30 @@
+relationship 46343bf3-1b51-49c6-9cc5-a6752caa39cd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_Calendario.Data
+	toColumn: LocalDateTable_944a5fb3-fa95-4fd1-84fc-1cc381f0a0a1.Date
+
+relationship 31cfca4e-aa87-42de-a1d5-0c5a2fd73643
+	fromColumn: fato_Vendas.DataEmissao
+	toColumn: dim_Calendario.Data
+
+relationship 4fe9b414-28a0-4d23-a870-1a82e6eb12a6
+	fromColumn: fato_Metas.'Data Meta'
+	toColumn: dim_Calendario.Data
+
+relationship 50969a60-6c43-49f4-b545-7a3b927413d0
+	fromColumn: fato_Vendas.cdProduto
+	toColumn: dim_Produto.cdProduto
+
+relationship 04c0f4b6-8320-40d2-941a-61891e857b80
+	fromColumn: fato_Vendas.cdVendedor
+	toColumn: dim_Vendedor.cdVendedor
+
+relationship 0ed4c8c1-ab37-4c59-aaa5-713f7ded6051
+	fromColumn: fato_Metas.cdVendedor
+	toColumn: dim_Vendedor.cdVendedor
+
+relationship f01ac591-a536-40d0-bc90-e1eeef5a3f5c
+	isActive: false
+	fromColumn: fato_Vendas.cdProduto
+	toColumn: Tab_dProdutoCrossSell.cdProduto
+

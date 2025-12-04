@@ -1,0 +1,54 @@
+expression Consulta1 =
+		let
+		    Fonte = List.Dates
+		in
+		    Fonte
+	lineageTag: 4249ded5-c62c-4be6-a78b-a2ea789be2f1
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression 'Produtos Imagens' =
+		let
+		    Fonte = Excel.Workbook(File.Contents(#"Fonte Local" & "\Fotos.xlsx"), null, true),
+		    Produtos_Sheet = Fonte{[Item="Produtos",Kind="Sheet"]}[Data],
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Produtos_Sheet,{{"Column1", type text}, {"Column2", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 2120e2b4-40c9-457d-b2ad-e713d808185a
+
+	annotation PBI_ResultType = Table
+
+expression 'Vendedores Imagens' =
+		let
+		    Fonte = Excel.Workbook(File.Contents(#"Fonte Local" & "\Fotos.xlsx"), null, true),
+		    Vendedores_Sheet = Fonte{[Item="Vendedores",Kind="Sheet"]}[Data],
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Vendedores_Sheet, [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"cdVendedor", Int64.Type}, {"URL", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 3b1171f2-8c47-4264-b2cb-5b814182338b
+
+	annotation PBI_ResultType = Table
+
+/// Fonte Local dos Dados:
+/// 
+/// 1° Abrir Power Query;
+/// 2° Clicar Gerenciar Parâmetros ou Clicar com o direito em Consultas/Selecionar Novo Parâmetro;
+/// 3° Inserir Nome: Fonte Local ou Parâmetro Local ou Endereço;
+/// 4° Tipo: Texto ou Qualquer;
+/// 5° Valores Sugeridos: Qualquer Valor;
+/// 6° Valor Atual: Copiar o caminho local das pastas com os arquivos e coloque no Valor Atual/Clicar OK;
+/// 7° Selecione a tabela/Fonte ou Selecione a tabela/Clique com o direito e Consulta Avançada;
+/// 8° File.Contents( apagar tudo antes da contra-barra(\) deixe somente  "\nome do arquivo"
+/// 9° Descreva isso com o nome do parâmetro #"Fonte Local" &
+/// 10° Siga os procedimentos 7°, 8° e 9° para as outras tabelas locais.
+expression 'Fonte Local' = "C:\Users\Gu\Desktop\DATA\13 - Dashboard Vendas\BaseDados" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b8467998-b138-4a9c-bbd9-437344cc325e
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navegação
+

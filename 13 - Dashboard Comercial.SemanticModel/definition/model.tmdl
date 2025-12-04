@@ -1,0 +1,49 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Fato
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Dimensão
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Parâmetros
+
+	annotation PBI_QueryGroupOrder = 2
+
+annotation PBI_QueryOrder = ["_Medidas","fato_Vendas","fato_Metas","Consulta1","dim_Calendario","dim_Produto","dim_Vendedor","_Inteligência ALL e ALLSELECT","Produtos Imagens","Vendedores Imagens","Tab_dProdutoCrossSell","Tab_Curva ABC","Fonte Local","Tab_Sel_ Pareto"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.145.1262.0 (25.07)+10bdeda5ab0db954b2cf824e7a117ad7cee97f88
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fato_Vendas
+ref table DateTableTemplate_1d4db620-fdd0-4ffe-8af5-9f8932fdc379
+ref table _Medidas
+ref table fato_Metas
+ref table dim_Calendario
+ref table LocalDateTable_944a5fb3-fa95-4fd1-84fc-1cc381f0a0a1
+ref table dim_Produto
+ref table dim_Vendedor
+ref table '_Inteligência ALL e ALLSELECT'
+ref table Parâmetro_Var
+ref table Tab_dProdutoCrossSell
+ref table 'Tab_Curva ABC'
+ref table 'Parâmetro_Gráfico Barras'
+ref table 'Parâmetro_Gráfico de Linha'
+ref table 'Parâmetro_Eixo X'
+ref table 'Parâmetro_Eixo Y'
+ref table 'Parâmetro_Faturamento - Meta'
+ref table 'Tab_Sel_ Pareto'
+
+ref cultureInfo pt-BR
+

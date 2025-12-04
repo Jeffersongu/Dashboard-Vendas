@@ -1,0 +1,51 @@
+table 'Parâmetro_Gráfico Barras'
+	lineageTag: f692e543-7910-4299-be79-b452e020eda1
+
+	column 'Parâmetro Gráfico Barras '
+		lineageTag: d8d04d70-004b-4cac-be65-aa4bb90e20a9
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parâmetro Gráfico Barras  Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Parâmetro Gráfico Barras  Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Gráfico Barras  Campos'
+		isHidden
+		lineageTag: 67d722b9-45c5-4ce8-9b9d-b99eeecb2649
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parâmetro Gráfico Barras  Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Gráfico Barras  Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: deb151e0-e7d6-40f3-82c4-332b9fc3a27d
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parâmetro_Gráfico Barras' = calculated
+		mode: import
+		source =
+				{
+				    ("Faturamento", NAMEOF('_Medidas'[Faturamento]), 0),
+				    ("Qtd Vendas / Quantidade de Vendas por Nota Fiscal", NAMEOF('_Medidas'[Qtd Vendas / Quantidade de Vendas por Nota Fiscal]), 1),
+				    ("Ticket Médio / Ticket Médio por Nota", NAMEOF('_Medidas'[Ticket Médio / Ticket Médio por Nota]), 2),
+				    ("Positivação ou Cobertura", NAMEOF('_Medidas'[Positivação ou Cobertura]), 3),
+				    ("Total Meta", NAMEOF('_Medidas'[Total Meta]), 4)
+				}
+
+	annotation PBI_Id = 69a959b410984522a616719ba041718d
+

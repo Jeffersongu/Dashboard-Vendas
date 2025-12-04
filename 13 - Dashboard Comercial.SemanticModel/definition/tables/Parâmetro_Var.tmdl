@@ -1,0 +1,53 @@
+table Parâmetro_Var
+	lineageTag: d2827e1e-8fb4-4ced-bdb3-378e9598d126
+
+	measure 'Var Valor' = ```
+			SELECTEDVALUE('Parâmetro_Var'[VarPrecoUnit],0)
+			
+			// A fórmula "Var Valor" seleciona o valor da coluna "VarPrecoUnit" da tabela "Var" e define o valor padrão como 0 se nenhum valor estiver selecionado.
+			
+			// SELECTEDVALUE: É uma função DAX que retorna o valor de uma coluna específica se houver apenas um valor selecionado em um contexto, caso contrário, retorna um valor padrão.
+			// 'Var'[VarPrecoUnit]: É a coluna "VarPrecoUnit" da tabela "Var" da qual queremos selecionar o valor.
+			// 0: É o valor padrão que será usado se nenhum valor estiver selecionado.
+			
+			/*
+			Essa fórmula é útil quando você deseja extrair o valor de uma coluna específica, mas também deseja definir um valor padrão para ser usado caso não haja um valor selecionado. Nesse caso, ela retorna o valor da coluna "VarPrecoUnit" da tabela "Var" se houver um valor selecionado; caso contrário, retorna 0 como valor padrão.
+			*/
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cbac1d2f-aaae-4567-bc1b-e5609fd7fd8c
+
+	column VarPrecoUnit
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cf516498-a7c5-4df3-b8bd-56a9d4817da1
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition Parâmetro_Var-a165cd60-5870-4563-8197-e8e740736acd = calculated
+		mode: import
+		source = ```
+				GENERATESERIES(-1, 1, 0.05)
+				
+				// A fórmula cria um conjunto de valores numéricos que variam de -1 a 1 em incrementos de 0,05. Esses valores são usados para simular diferentes variações percentuais de preço unitário.
+				
+				// GENERATESERIES: É uma função que gera uma série de valores numéricos dentro de um intervalo especificado.
+				// -1: É o valor inicial do intervalo, equivalente a uma redução de preço de 100%.
+				// 1: É o valor final do intervalo, equivalente a um aumento de preço de 100%.
+				// 0.05: É o incremento entre os valores na série, equivalente a 5% de variação de preço.
+				
+				/*
+				Essa fórmula cria um conjunto de valores que representam diferentes variações percentuais de preço unitário, indo de uma redução de 100% a um aumento de 100%, em incrementos de 5%. Esses valores podem ser usados posteriormente em cálculos para simular o impacto das variações de preço no faturamento.
+				*/
+				
+				```
+
+	annotation PBI_Id = 2c74da365599494c80a0d1f9e18b3210
+

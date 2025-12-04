@@ -1,0 +1,52 @@
+table 'Parâmetro_Gráfico de Linha'
+	lineageTag: d16ec024-852f-484c-b2ed-a4ba72cd642d
+
+	column 'Gráfico de Linha '
+		lineageTag: 1939d866-836b-435c-871d-5f407205a854
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Gráfico de Linha  Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Gráfico de Linha  Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gráfico de Linha  Campos'
+		isHidden
+		lineageTag: f11b968b-9cb7-4c16-babf-5ff7f53d265f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Gráfico de Linha  Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gráfico de Linha  Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: d1f836ed-f4ea-4605-b832-077c11c5aa83
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parâmetro_Gráfico de Linha' = calculated
+		mode: import
+		source =
+				{
+				    ("Faturamento Ano Anterior / Faturamento Last Year", NAMEOF('_Medidas'[Faturamento Ano Anterior / Faturamento Last Year]), 0),
+				    ("Faturamento YTD ( ) Acumulado", NAMEOF('_Medidas'[Faturamento YTD ( ) Acumulado]), 1),
+				    ("Total Meta", NAMEOF('_Medidas'[Total Meta]), 2),
+				    ("Qtd Vendas Ano Anterior", NAMEOF('_Medidas'[Qtd Vendas Ano Anterior]), 3),
+				    ("Ticket Médio por Nota Ano Anterior / Ticket Médio por Nota Last Year", NAMEOF('_Medidas'[Ticket Médio por Nota Ano Anterior / Ticket Médio por Nota Last Year]), 4),
+				    ("Positivação ou Cobertura Year (Ano Anterior)", NAMEOF('_Medidas'[Positivação ou Cobertura Year (Ano Anterior)]), 5)
+				}
+
+	annotation PBI_Id = 89c720cf07e74bd4b2bda2855a08f53a
+

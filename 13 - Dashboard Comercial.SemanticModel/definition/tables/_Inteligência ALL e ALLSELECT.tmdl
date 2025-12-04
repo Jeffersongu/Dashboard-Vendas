@@ -1,0 +1,35 @@
+table '_Inteligência ALL e ALLSELECT'
+	lineageTag: 86fa7c57-5e3d-42a4-9a5c-3085f4e3bfcd
+
+	measure 'Faturamento ALLSELECT Vendas' =
+			
+			
+			CALCULATE([Faturamento],
+			          ALLSELECTED(fato_Vendas)
+			          )
+		lineageTag: 07dd289f-2aae-4d15-8219-a6d7c8d811a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento ALL Vendas' =
+			
+			
+			CALCULATE([Faturamento],
+			          ALL(fato_Vendas)
+			          )
+		lineageTag: 3ecc58f2-3e80-4564-ab93-a7f0c01aa28a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition '_Inteligência ALL e ALLSELECT-535b0349-bc21-4596-96f6-0142532d8d7e' = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+

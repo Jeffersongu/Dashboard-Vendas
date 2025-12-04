@@ -1,0 +1,94 @@
+table fato_Vendas
+	lineageTag: b3f2bf99-4dcf-4861-bc65-12f18d867629
+
+	column DataEmissao
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3d9b873a-5a8e-4638-9316-bc34e034e466
+		summarizeBy: none
+		sourceColumn: DataEmissao
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column NFe
+		dataType: string
+		lineageTag: 4e4cad6f-3cea-42e7-b9b2-b4ccd7b89e63
+		summarizeBy: none
+		sourceColumn: NFe
+
+		annotation SummarizationSetBy = Automatic
+
+	column cdProduto
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a47d5d4-02ba-41f2-acbb-ae68f31d035e
+		summarizeBy: none
+		sourceColumn: cdProduto
+
+		annotation SummarizationSetBy = Automatic
+
+	column cdVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 61600ea3-38c1-4d33-bd57-63e7f2823be0
+		summarizeBy: none
+		sourceColumn: cdVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column QtdItens
+		dataType: int64
+		formatString: 0
+		lineageTag: 08b5384e-1adb-4f52-a399-88dff253c4a4
+		summarizeBy: sum
+		sourceColumn: QtdItens
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValorUnitario
+		dataType: double
+		lineageTag: 4c25a642-242c-4e1f-9ef2-5cd5c7caaf67
+		summarizeBy: sum
+		sourceColumn: ValorUnitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Valor Total'
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: a990750b-a1b6-4de8-a720-934dc9f26a40
+		summarizeBy: sum
+		sourceColumn: Valor Total
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	partition fato_Vendas-a71df46a-7321-4e55-8687-2ef299ed63f2 = m
+		mode: import
+		queryGroup: Fato
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(#"Fonte Local" & "\Vendas.xlsx"), null, true),
+				    Planilha1_Sheet = Fonte{[Item="Planilha1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Planilha1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"DataEmissao", type date}, {"NFe", Int64.Type}, {"cdProduto", Int64.Type}, {"Produto", type text}, {"Grupo Produto", type text}, {"Linha Produto", type text}, {"cdVendedor", Int64.Type}, {"Vendedor", type text}, {"Supervisor", type text}, {"Gerente", type text}, {"Equipe Vendas", type text}, {"QtdItens", Int64.Type}, {"ValorUnitario", type number}}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Tipo Alterado",{{"NFe", type text}}),
+				    #"Multiplicação Inserida" = Table.AddColumn(#"Tipo Alterado1", "Multiplicação", each [QtdItens] * [ValorUnitario], type number),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Multiplicação Inserida",{{"Multiplicação", "Valor Total"}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Colunas Renomeadas",{"DataEmissao", "NFe", "cdProduto", "cdVendedor", "QtdItens", "ValorUnitario", "Valor Total"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

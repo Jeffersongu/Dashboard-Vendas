@@ -1,0 +1,51 @@
+table 'Parâmetro_Eixo X'
+	lineageTag: 24c4e517-2ac3-47a6-b35a-124eed50b468
+
+	column 'Eixo X'
+		lineageTag: 6319977e-fc97-466e-937c-8966bb7ab48e
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Eixo X Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Eixo X Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Eixo X Campos'
+		isHidden
+		lineageTag: d1741896-9d22-4302-8fcf-86b44e6a9ba7
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Eixo X Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Eixo X Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 1a6343fe-62ba-4c1d-926f-03b1ff4e850f
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parâmetro_Eixo X' = calculated
+		mode: import
+		source =
+				{
+				    ("Faturamento", NAMEOF('_Medidas'[Faturamento]), 0),
+				    ("Qtd Vendas / Quantidade de Vendas por Nota Fiscal", NAMEOF('_Medidas'[Qtd Vendas / Quantidade de Vendas por Nota Fiscal]), 1),
+				    ("Ticket Médio / Ticket Médio por Nota", NAMEOF('_Medidas'[Ticket Médio / Ticket Médio por Nota]), 2),
+				    ("Positivação ou Cobertura", NAMEOF('_Medidas'[Positivação ou Cobertura]), 3),
+				    ("Quantidade de Itens Vendidos", NAMEOF('_Medidas'[Quantidade de Itens Vendidos]), 4)
+				}
+
+	annotation PBI_Id = 2d3b9e71e20f4553bb6313ed518f519a
+

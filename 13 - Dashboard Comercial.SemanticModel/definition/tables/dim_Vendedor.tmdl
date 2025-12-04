@@ -1,0 +1,75 @@
+table dim_Vendedor
+	lineageTag: 20458fe0-f8cf-433c-a17c-a44d674b4977
+
+	column cdVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 40674812-3691-438f-9a73-db51a45805b8
+		summarizeBy: none
+		sourceColumn: cdVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: string
+		lineageTag: b615d7e1-3980-49a3-8170-bb96c0e25a82
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Supervisor
+		dataType: string
+		lineageTag: 9200bb2f-a7c4-4afe-a486-791cf4f0e59e
+		summarizeBy: none
+		sourceColumn: Supervisor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gerente
+		dataType: string
+		lineageTag: 66d10070-76fe-4fd0-a366-ca4ae7b65544
+		summarizeBy: none
+		sourceColumn: Gerente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Equipe Vendas'
+		dataType: string
+		lineageTag: a9563ae1-e4ea-43c9-a795-c4116e4b91b5
+		summarizeBy: none
+		sourceColumn: Equipe Vendas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'URL Vendedor'
+		dataType: string
+		lineageTag: 55edf11a-5a56-4684-b847-8e29df12f03e
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: URL Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_Vendedor-95e417c6-c749-412c-b749-cd3f30e8ba52 = m
+		mode: import
+		queryGroup: Dimensão
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(#"Fonte Local" & "\Vendas.xlsx"), null, true),
+				    Planilha1_Sheet = Fonte{[Item="Planilha1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Planilha1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"DataEmissao", type date}, {"NFe", Int64.Type}, {"cdProduto", Int64.Type}, {"Produto", type text}, {"Grupo Produto", type text}, {"Linha Produto", type text}, {"cdVendedor", Int64.Type}, {"Vendedor", type text}, {"Supervisor", type text}, {"Gerente", type text}, {"Equipe Vendas", type text}, {"QtdItens", Int64.Type}, {"ValorUnitario", type number}}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Tipo Alterado",{{"NFe", type text}}),
+				    #"Multiplicação Inserida" = Table.AddColumn(#"Tipo Alterado1", "Multiplicação", each [QtdItens] * [ValorUnitario], type number),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Multiplicação Inserida",{{"Multiplicação", "Valor Total"}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Colunas Renomeadas",{"cdVendedor", "Vendedor", "Supervisor", "Gerente", "Equipe Vendas"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Outras Colunas Removidas", {"cdVendedor"}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Duplicatas Removidas", {"cdVendedor"}, #"Vendedores Imagens", {"cdVendedor"}, "Vendedores Imagens", JoinKind.LeftOuter),
+				    #"Vendedores Imagens Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Vendedores Imagens", {"URL"}, {"Vendedores Imagens.URL"}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Vendedores Imagens Expandido",{{"Vendedores Imagens.URL", "URL Vendedor"}})
+				in
+				    #"Colunas Renomeadas1"
+
+	annotation PBI_ResultType = Table
+

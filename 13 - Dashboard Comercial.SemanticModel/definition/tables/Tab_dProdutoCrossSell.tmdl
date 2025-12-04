@@ -1,0 +1,68 @@
+table Tab_dProdutoCrossSell
+	lineageTag: aa7a4350-61e1-420a-91eb-8b7e0b2512a8
+
+	column cdProduto
+		dataType: int64
+		formatString: 0
+		lineageTag: cd620881-11df-47ae-bfc2-66b4fa9bd4d8
+		summarizeBy: sum
+		sourceColumn: cdProduto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Produto
+		dataType: string
+		lineageTag: 5b7bbf91-ff17-46e0-a78b-37b67c90a592
+		summarizeBy: none
+		sourceColumn: Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grupo Produto'
+		dataType: string
+		lineageTag: 2e3e4537-50ee-4462-a000-4d3bc73b27ed
+		summarizeBy: none
+		sourceColumn: Grupo Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linha Produto'
+		dataType: string
+		lineageTag: fda905e1-8ce6-4920-b56c-53e4382c00dc
+		summarizeBy: none
+		sourceColumn: Linha Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Produtos Imagens.Column2'
+		dataType: string
+		lineageTag: 9ffaa734-217a-4cc7-b76e-705886a1ce8f
+		summarizeBy: none
+		sourceColumn: Produtos Imagens.Column2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Tab_dProdutoCrossSell-418b1896-df21-4715-a6e6-130abb3def9c = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(#"Fonte Local" & "\Vendas.xlsx"), null, true),
+				    Planilha1_Sheet = Fonte{[Item="Planilha1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Planilha1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"DataEmissao", type date}, {"NFe", Int64.Type}, {"cdProduto", Int64.Type}, {"Produto", type text}, {"Grupo Produto", type text}, {"Linha Produto", type text}, {"cdVendedor", Int64.Type}, {"Vendedor", type text}, {"Supervisor", type text}, {"Gerente", type text}, {"Equipe Vendas", type text}, {"QtdItens", Int64.Type}, {"ValorUnitario", type number}}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Tipo Alterado",{{"NFe", type text}}),
+				    #"Multiplicação Inserida" = Table.AddColumn(#"Tipo Alterado1", "Multiplicação", each [QtdItens] * [ValorUnitario], type number),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Multiplicação Inserida",{{"Multiplicação", "Valor Total"}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Colunas Renomeadas",{"cdProduto", "Produto", "Grupo Produto", "Linha Produto"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Outras Colunas Removidas", {"cdProduto"}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Duplicatas Removidas", {"Grupo Produto"}, #"Produtos Imagens", {"Column1"}, "Produtos Imagens", JoinKind.LeftOuter),
+				    #"Produtos Imagens Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Produtos Imagens", {"Column2"}, {"Produtos Imagens.Column2"})
+				in
+				    #"Produtos Imagens Expandido"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+
