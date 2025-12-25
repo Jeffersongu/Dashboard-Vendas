@@ -1,7 +1,7 @@
 # Dashboard-Vendas
 
 ## 1° Problema de Negócio
-Explique o problema da negócio, qual o problema da empresa, o que está acontecendo ou o que motivou a criação desta solução.
+Explique o problema de negócio, qual o problema da empresa, o que está acontecendo ou o que motivou a criação desta solução.
 
 **Visão Geral da Express:**
 
@@ -34,14 +34,14 @@ Seleção dos KPI's e métricas.
  Criação de gráficos claros para facilitar a interpretação dos resultados e comunicação com o negócio.
 
  ## 5° Insights da Análise
- Não basta somente apresentar os dados ou visuais, é extremamente importante explicar com palavras o que o gráfico quer dizer, não assuma que os stakeholders entenderam os gráficos simplemente observando, a parte técniva deve ser abstraida para que todos entendam. A análise dos dados permitiu identificar padrões relevantes como:
+ Não basta somente apresentar os dados ou visuais, é extremamente importante explicar com palavras o que o gráfico quer dizer, não acredite que os stakeholders entenderam os gráficos simplesmente observando, a parte técnica deve ser abstraída para que todos entendam. A análise dos dados permitiu identificar padrões relevantes como:
 
  ## 6° Resultados
  Conclusão das análises, depois que descrevemos os visuais e encontramos pontos de melhoria, qual é a conclusão geral, qual será a recomendação para solucionar o problema.
- Link para o relatório completo
+ Link para o relatório completo:
 
  ## 7° Próximos Passos
- O que fariamos com mais tempo para trabalhar neste projeto por exemplo:
+ O que faríamos com mais tempo para trabalhar neste projeto por exemplo:
 
  
  
