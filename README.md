@@ -1,4 +1,9 @@
 # Dashboard-Vendas
+<!-- Adicionando Gifs: -->
+![Dashboard Vendas - Gifs](https://github.com/user-attachments/assets/3e5ba7cc-1496-44da-bd4a-e3f674f592eb)
+
+
+
 
 ## 1° Problema de Negócio
 Explique o problema de negócio, qual o problema da empresa, o que está acontecendo ou o que motivou a criação desta solução.
