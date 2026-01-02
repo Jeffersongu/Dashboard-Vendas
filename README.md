@@ -20,29 +20,39 @@ Explique o problema de negócio, qual o problema da empresa, o que está acontec
  - Diante desse cenário, torna-se necessário investigar variáveis-chave como volume de vendas, faturamento, desempenho por produto, região e período, além de identificar padrões e tendências que apoiem a tomada de decisão estratégica. A migração para uma solução de Business Intelligence, como o Power BI, surge como alternativa para centralizar os dados, automatizar a atualização dos relatórios e oferecer visualizações mais claras, interativas e padronizadas, promovendo maior agilidade, confiabilidade e valor analítico para o negócio.
 
  ## 3° Premissas da Análise
- - Para a condução desta análise, foram estabelecidas algumas premissas com o objetivo de garantir consistência, confiabilidade e alinhamento com o contexto do negócio. Assume-se que os dados de vendas fornecidos pela empresa representam fielmente as operações realizadas no período analisado, estando devidamente registrados nos sistemas de origem, sem perdas relevantes de informação.
+Para a condução desta análise, foram estabelecidas algumas premissas com o objetivo de garantir consistência, confiabilidade e alinhamento com o contexto do negócio.
+ - Assume-se que os dados de vendas fornecidos pela empresa representam fielmente as operações realizadas no período analisado, estando devidamente registrados nos sistemas de origem, sem perdas relevantes de informação.
 
- - Considera-se também que as bases de dados utilizadas possuem granularidade suficiente para permitir análises por período, produto, cliente e região, possibilitando a construção de indicadores de desempenho e comparações temporais. Eventuais inconsistências, valores nulos ou duplicidades serão tratadas por meio de processos de limpeza e transformação de dados durante a etapa de preparação.
+ - Considera-se também que as bases de dados utilizadas possuem granularidade suficiente para permitir análises por período, produto, cliente e região, possibilitando a construção de indicadores de desempenho e comparações temporais.
+ - Eventuais inconsistências, valores nulos ou duplicidades serão tratadas por meio de processos de limpeza e transformação de dados durante a etapa de preparação.
 
  ## 4° Estratégia da Solução
-A estratégia adotada seguiu uma abordagem estruturada de análise de dados, através do Modelo de Requisitos:
+O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o problema de negócio, os objetivos analíticos e as entregas finais do projeto. 
+- Essa abordagem permite estruturar a análise de dados de forma lógica e rastreável, conectando fontes de dados, métricas, análises e stakeholders em um único framework.
+
+- A escolha desse modelo visa reduzir ambiguidades, priorizar indicadores relevantes para o negócio e assegurar que os dashboards desenvolvidos no Power BI atendam diretamente às necessidades da área comercial. Além disso, o uso do Modelo de Requisitos facilita a escalabilidade da solução, a manutenção dos relatórios e a comunicação entre áreas técnicas e de negócio.
 
 <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/f384cbe7-20c4-454c-a949-4698d7688b99" />
 
 
- #### 4.1° Entendimento do Problema de Negócio
- Entender o problema de negócio. 
+ #### 4.1° Análise de Projeto
+ Nesta etapa, o foco é compreender profundamente o negócio do cliente. Isso envolve pesquisas, entrevistas e análises de documentos. O objetivo é identificar os desafios e necessidades do cliente, criando uma base sólida para as tarefas subsequentes:
+ - Levantamento de Requisitos do Projeto;
+ - Análise de Viabilidade;
+ - Definição das Técnologias Adotadas;
+ - Definição do Cronograma do Projeto;
+ - Alinhamento com os Stakeholders
  
- #### 4.2° Exploração e Organização dos Dados
+ #### 4.2° Processo de Tratamento dos Dados
  Organizar os dados e realizar a exploração dos dados para entender o estado do projeto. Compreensão das colunas, tipos de dados e possíveis inconsistências.
  
- #### 4.3° Análise Descritiva
+ #### 4.3° Modelagem
 Seleção dos KPI's e métricas. 
  
- #### 4.4° Segmentação do Problema
+ #### 4.4° Designer do Projeto
  Segmentação dos problemas analisados para entender quais são os influenciadores do problema.
 
- #### 4.5° Visualização dos Dados
+ #### 4.5° Monitoramento
  Criação de gráficos claros para facilitar a interpretação dos resultados e comunicação com o negócio.
 
  ## 5° Insights da Análise
