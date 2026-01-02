@@ -15,13 +15,20 @@ Explique o problema de negócio, qual o problema da empresa, o que está acontec
 - Detalhes dos Desafios: Levamos muito tempo na entrega dos relatórios de vendas que são desenvolvidos na área de vendas, limitando nossas análises. Queremos migrar do Excel para o Power BI e melhorar o layout dos nossos relatórios.
 
 ## 2° Contexto
- Qual o contexto do problema enfrentado pela empresa, o que está acontecendo, quais são as variáveis que pretendemos investigar.
+ - Atualmente, a Express enfrenta desafios relacionados à eficiência e à escalabilidade de seus processos de análise de dados, especialmente no que diz respeito aos relatórios de vendas. As informações são extraídas de diferentes fontes e consolidadas manualmente em planilhas Excel, o que torna o processo moroso, suscetível a erros e altamente dependente de retrabalho. Essa abordagem impacta diretamente o tempo de entrega dos relatórios e limita a capacidade da área de vendas e da gestão em realizar análises mais profundas e em tempo hábil.
+
+ - Diante desse cenário, torna-se necessário investigar variáveis-chave como volume de vendas, faturamento, desempenho por produto, região e período, além de identificar padrões e tendências que apoiem a tomada de decisão estratégica. A migração para uma solução de Business Intelligence, como o Power BI, surge como alternativa para centralizar os dados, automatizar a atualização dos relatórios e oferecer visualizações mais claras, interativas e padronizadas, promovendo maior agilidade, confiabilidade e valor analítico para o negócio.
 
  ## 3° Premissas da Análise
- É tudo aquilo que consideramos verdade antes de analisar os dados.
+ - Para a condução desta análise, foram estabelecidas algumas premissas com o objetivo de garantir consistência, confiabilidade e alinhamento com o contexto do negócio. Assume-se que os dados de vendas fornecidos pela empresa representam fielmente as operações realizadas no período analisado, estando devidamente registrados nos sistemas de origem, sem perdas relevantes de informação.
+
+ - Considera-se também que as bases de dados utilizadas possuem granularidade suficiente para permitir análises por período, produto, cliente e região, possibilitando a construção de indicadores de desempenho e comparações temporais. Eventuais inconsistências, valores nulos ou duplicidades serão tratadas por meio de processos de limpeza e transformação de dados durante a etapa de preparação.
 
  ## 4° Estratégia da Solução
-Como solucionar o problema em passos planejado e estruturado. A estratégia adotada seguiu uma abordagem estruturada de análise de dados:
+A estratégia adotada seguiu uma abordagem estruturada de análise de dados, através do Modelo de Requisitos:
+
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/f384cbe7-20c4-454c-a949-4698d7688b99" />
+
 
  #### 4.1° Entendimento do Problema de Negócio
  Entender o problema de negócio. 
@@ -47,6 +54,12 @@ Seleção dos KPI's e métricas.
 
  ## 7° Próximos Passos
  O que faríamos com mais tempo para trabalhar neste projeto por exemplo:
+
+- Desenvolvimento de Banco de Dados;
+- Analise da Curva ABC;
+- Analise de Forecast;
+- Analise de Cohort;
+- Analise de RFV.
 
  
  
