@@ -41,10 +41,21 @@ O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o probl
  - Análise de Viabilidade;
  - Definição das Técnologias Adotadas;
  - Definição do Cronograma do Projeto;
+
+   O cronograma do projeto será desenvolvido em cinco etapas: Análise, ETL, Modelagem, Designer e Governança dos Dados.
+   As etapas de projeto contém as tarefas que podem ser visualizadas na árvore hierárquica abaixo.
+   E cada tarefa possui um conjunto de atividades com um cheklist.
+   
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9cccf3b5-b26e-42c2-889a-bb2ac1fd8964" width="800" alt="image">
+</p>
+
  - Alinhamento com os Stakeholders
  
  #### 4.2° Processo de Tratamento dos Dados
  Organizar os dados e realizar a exploração dos dados para entender o estado do projeto. Compreensão das colunas, tipos de dados e possíveis inconsistências.
+ <img width="1671" height="968" alt="image" src="https://github.com/user-attachments/assets/71100f00-a783-4304-9a60-1e1f9fd43630" />
+
  
  #### 4.3° Modelagem
 Seleção dos KPI's e métricas. 
