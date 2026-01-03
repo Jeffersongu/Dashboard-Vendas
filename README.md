@@ -17,8 +17,6 @@ Explique o problema de negócio, qual o problema da empresa, o que está acontec
 ## 2° Contexto
  - Atualmente, a Express enfrenta desafios relacionados à eficiência e à escalabilidade de seus processos de análise de dados, especialmente no que diz respeito aos relatórios de vendas. As informações são extraídas de diferentes fontes e consolidadas manualmente em planilhas Excel, o que torna o processo moroso, suscetível a erros e altamente dependente de retrabalho. Essa abordagem impacta diretamente o tempo de entrega dos relatórios e limita a capacidade da área de vendas e da gestão em realizar análises mais profundas e em tempo hábil.
 
- - Diante desse cenário, torna-se necessário investigar variáveis-chave como volume de vendas, faturamento, desempenho por produto, região e período, além de identificar padrões e tendências que apoiem a tomada de decisão estratégica. A migração para uma solução de Business Intelligence, como o Power BI, surge como alternativa para centralizar os dados, automatizar a atualização dos relatórios e oferecer visualizações mais claras, interativas e padronizadas, promovendo maior agilidade, confiabilidade e valor analítico para o negócio.
-
  ## 3° Premissas da Análise
 Para a condução desta análise, foram estabelecidas algumas premissas com o objetivo de garantir consistência, confiabilidade e alinhamento com o contexto do negócio.
  - Assume-se que os dados de vendas fornecidos pela empresa representam fielmente as operações realizadas no período analisado, estando devidamente registrados nos sistemas de origem, sem perdas relevantes de informação.
@@ -51,14 +49,54 @@ O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o probl
 </p>
 
  - Alinhamento com os Stakeholders
+
  
- #### 4.2° Processo de Tratamento dos Dados
- Organizar os dados e realizar a exploração dos dados para entender o estado do projeto. Compreensão das colunas, tipos de dados e possíveis inconsistências.
- <img width="1671" height="968" alt="image" src="https://github.com/user-attachments/assets/71100f00-a783-4304-9a60-1e1f9fd43630" />
+ #### 4.2° ETL
+ Durante a fase ETL (Extração, Transformação e Carga), nosso foco é assegurar que os dados estejam prontos para análises relevantes. Na etapa de Extração, coletamos dados de diversas fontes; na Transformação, realizamos limpeza e adaptação; e na Carga, disponibilizamos os dados em formato propício para análises.
+ 
+ - A arquitetura de tratamento de dados foi definida considerando as restrições de acesso à origem, uma vez que não há conexão direta com o banco de dados do ERP. Por esse motivo, optou-se pela extração diária dos dados em arquivos Excel padronizados, garantindo consistência e previsibilidade no processo de ingestão.
+
+- O uso do Pentaho (inicialmente Power Query) foi escolhido para centralizar as etapas de extração, tratamento e validação dos dados, permitindo controle do fluxo, reaproveitamento de transformações e facilidade de manutenção. A separação entre área de Stage e Data Warehouse segue boas práticas de arquitetura analítica, possibilitando validações antes da carga final, maior confiabilidade dos dados e redução de impactos em caso de falhas.
+
+- Essa abordagem proporciona escalabilidade, organização do pipeline de dados e integração eficiente com o Power BI, assegurando que as análises sejam construídas sobre dados tratados, consistentes e alinhados às necessidades do negócio.
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/71100f00-a783-4304-9a60-1e1f9fd43630" width="800" alt="image">
+</p>
 
  
  #### 4.3° Modelagem
-Seleção dos KPI's e métricas. 
+A Modelagem dos Dados representa a espinha dorsal do sistema, estabelecendo relacionamentos sólidos entre as tabelas e definindo a estrutura que suportará a análise de dados. Nessa fase, o foco está na criação de um modelo coeso e eficiente que atenda às necessidades específicas do negócio.
+
+- Como o sistema de origem não disponibiliza cadastros individuais de produtos e vendedores, optou-se por derivar as dimensões dProduto e dVendedor a partir da própria base de vendas, garantindo consistência entre chaves e eliminando dependência de fontes externas inexistentes. Essa decisão permitiu estruturar o modelo mesmo diante das limitações do ERP.
+
+- Foram definidas as tabelas dCalendário, dProduto, dVendedor, fVendas e fMetas, seguindo boas práticas de modelagem dimensional. A separação entre tabelas fato e dimensão facilita a leitura do modelo, melhora a performance das consultas e amplia a flexibilidade analítica no Power BI.
+
+- A criação das dimensões dProduto e dVendedor teve como objetivo reduzir o tamanho da tabela fVendas, mantendo nela apenas métricas e chaves, o que contribui para melhor desempenho, manutenção e escalabilidade do modelo.
+
+- A tabela dCalendário foi criada para padronizar análises temporais e permitir o correto relacionamento entre as tabelas de vendas e metas, considerando diferentes campos de data (data de emissão e data da meta), evitando inconsistências em análises por período.
+
+- Os relacionamentos foram definidos de forma que as dimensões filtrem as tabelas fato (dProduto → fVendas, dVendedor → fVendas e fMetas, dCalendário → fVendas e fMetas), garantindo integridade analítica, evitando ambiguidade nos filtros e assegurando previsibilidade nos cálculos.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/52707191-3b40-402f-84db-92effdd9b56d" width="800" alt="image">
+</p>
+
+
+- A construção do dashboard foi iniciada a partir do conceito de storytelling analítico, organizando as páginas em uma sequência lógica que conduz o usuário da visão geral para análises mais específicas. Essa abordagem foi escolhida para facilitar a interpretação dos dados e apoiar a tomada de decisão progressiva, partindo de indicadores macro para análises detalhadas.
+
+- A primeira página concentra os principais KPIs (faturamento, quantidade de vendas, ticket médio e positivação), permitindo uma leitura rápida da performance comercial. As análises ao longo do tempo, por produto e por vendedor foram priorizadas para identificar tendências, gargalos e oportunidades de melhoria.
+
+- As páginas seguintes foram estruturadas para análise de metas, desempenho por hierarquia comercial e ranking de vendedores, utilizando visuais comparativos e hierárquicos. Essa organização permite avaliar resultados individuais e coletivos, além de identificar os principais influenciadores do faturamento.
+
+- A inclusão de análises de novos faturamentos, lucratividade, previsão e cestas de produtos foi definida para agregar valor estratégico ao dashboard, indo além do acompanhamento operacional e apoiando decisões táticas e comerciais.
+
+- O desenvolvimento das medidas em DAX seguiu boas práticas de padronização, documentação e organização, garantindo legibilidade, manutenção e confiabilidade dos cálculos. A validação dos resultados foi realizada por meio de ferramentas como Analyze in Excel e Excel, assegurando consistência entre os dados e os indicadores apresentados.
+
+- A escolha dos tipos de visualizações e a organização da interface priorizaram usabilidade, clareza e navegação intuitiva, reduzindo ruídos visuais e facilitando o consumo das informações por diferentes perfis de usuários.
+
+
+<img width="1918" height="1026" alt="image" src="https://github.com/user-attachments/assets/9a01ee05-3540-48fe-bd7d-3f946d7b77f7" />
  
  #### 4.4° Designer do Projeto
  Segmentação dos problemas analisados para entender quais são os influenciadores do problema.
