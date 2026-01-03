@@ -98,8 +98,21 @@ A Modelagem dos Dados representa a espinha dorsal do sistema, estabelecendo rela
 
 <img width="1918" height="1026" alt="image" src="https://github.com/user-attachments/assets/9a01ee05-3540-48fe-bd7d-3f946d7b77f7" />
  
+ </p>
+ 
  #### 4.4° Designer do Projeto
- Segmentação dos problemas analisados para entender quais são os influenciadores do problema.
+ A fase de Design é fundamental para moldar a arquitetura e a estética da solução. Durante essa etapa, é crucial definir a estrutura da interface, os componentes visuais e a lógica de interação para proporcionar uma experiência eficiente aos usuários finais. Essas decisões têm um impacto significativo na usabilidade e na eficácia da solução, influenciando diretamente a qualidade da experiência do usuário final e a efetividade do projeto de BI como um todo.
+
+- O design do dashboard foi desenvolvido utilizando o Figma, ferramenta definida na etapa de Definição das Tecnologias Adotadas, por permitir prototipação rápida, padronização visual, validação prévia com stakeholders e redução de retrabalho durante a implementação no Power BI.
+
+- O Guia Definitivo de Storytelling e Design de Dashboards foi utilizado como referência para assegurar que os visuais seguissem boas práticas de leitura, contraste, priorização de informação e alinhamento com os objetivos analíticos definidos, evitando excesso de elementos e ruído visual.
+
+- A validação com o designer foi realizada para assegurar aderência às boas práticas de UX/UI e à identidade visual, reduzindo riscos de problemas de usabilidade antes da construção final no Power BI.
+
+- Por fim, foi aplicado um checklist final de validação, garantindo que todos os critérios de layout, storytelling, legibilidade e padronização fossem atendidos antes da entrega, assegurando qualidade, consistência e facilidade de uso do dashboard.
+
+<img width="1482" height="803" alt="image" src="https://github.com/user-attachments/assets/1c5a5a30-0156-4276-8e07-df6c0b7e7e5a" />
+</p>
 
  #### 4.5° Monitoramento
  Criação de gráficos claros para facilitar a interpretação dos resultados e comunicação com o negócio.
