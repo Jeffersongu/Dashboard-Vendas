@@ -98,7 +98,7 @@ A Modelagem dos Dados representa a espinha dorsal do sistema, estabelecendo rela
 
 <img width="1918" height="1026" alt="image" src="https://github.com/user-attachments/assets/9a01ee05-3540-48fe-bd7d-3f946d7b77f7" />
  
- </p>
+<br/>
  
  #### 4.4° Designer do Projeto
  A fase de Design é fundamental para moldar a arquitetura e a estética da solução. Durante essa etapa, é crucial definir a estrutura da interface, os componentes visuais e a lógica de interação para proporcionar uma experiência eficiente aos usuários finais. Essas decisões têm um impacto significativo na usabilidade e na eficácia da solução, influenciando diretamente a qualidade da experiência do usuário final e a efetividade do projeto de BI como um todo.
@@ -112,7 +112,7 @@ A Modelagem dos Dados representa a espinha dorsal do sistema, estabelecendo rela
 - Por fim, foi aplicado um checklist final de validação, garantindo que todos os critérios de layout, storytelling, legibilidade e padronização fossem atendidos antes da entrega, assegurando qualidade, consistência e facilidade de uso do dashboard.
 
 <img width="1482" height="803" alt="image" src="https://github.com/user-attachments/assets/1c5a5a30-0156-4276-8e07-df6c0b7e7e5a" />
-</p>
+<br/>
 
  #### 4.5° Monitoramento
  Criação de gráficos claros para facilitar a interpretação dos resultados e comunicação com o negócio.
