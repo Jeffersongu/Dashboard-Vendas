@@ -115,7 +115,14 @@ A Modelagem dos Dados representa a espinha dorsal do sistema, estabelecendo rela
 <br/>
 
  #### 4.5° Monitoramento
- Criação de gráficos claros para facilitar a interpretação dos resultados e comunicação com o negócio.
+ A fase de Governança dos Dados é essencial para garantir a qualidade, integridade e segurança das informações manipuladas no projeto de BI. Nesse contexto, estabelecer políticas, normas e processos claros para a gestão dos dados é fundamental. A governança visa assegurar a confiabilidade das fontes de dados, promover a conformidade com regulamentações e padrões, além de definir papéis e responsabilidades na administração dos ativos de informação. Ao adotar práticas robustas de governança, a organização potencializa a tomada de decisões baseada em dados confiáveis e mitigação de riscos, contribuindo para o sucesso contínuo do projeto de BI.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5180af36-090a-4bab-a22f-d03188e6844e" width="800" alt="image">
+</p>
+
+ 
+
 
  ## 5° Insights da Análise
  Não basta somente apresentar os dados ou visuais, é extremamente importante explicar com palavras o que o gráfico quer dizer, não acredite que os stakeholders entenderam os gráficos simplesmente observando, a parte técnica deve ser abstraída para que todos entendam. A análise dos dados permitiu identificar padrões relevantes como:
