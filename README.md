@@ -37,7 +37,26 @@ O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o probl
  Nesta etapa, o foco é compreender profundamente o negócio do cliente. Isso envolve pesquisas, entrevistas e análises de documentos. O objetivo é identificar os desafios e necessidades do cliente, criando uma base sólida para as tarefas subsequentes:
  - Levantamento de Requisitos do Projeto;
  - Análise de Viabilidade;
- - Definição das Técnologias Adotadas;
+ - Definição das Tecnologias Adotadas:
+ - Por que o Notion?
+   - Centraliza toda a documentação;
+   - Organização de requisitos e decisões técnicas;
+   - Facilita a rastreabilidade entre negócio, dados e entregas analíticas.
+  - Por que o SQL Server?
+    - Utilizado como camada de armazenamento e Data Warehouse por oferecer robustez, confiabilidade, bom desempenho analítico;
+    - Fácil integração nativa com ferramentas de BI.
+  - Por que o Pentaho?
+    - Utilizado para garantir controle do fluxo de dados e a aplicação de boas práticas de tratamento;
+    - Permite a escalabilidade e o reaproveitamento de transformações, reduzindo o tempo de manutenção.
+  - Por que o Excalidraw?
+    - Adotado para simplificar a comunicação técnica da arquitetura e o desenho dos processos;
+    - Auxilia na identificação prévia de gargalos no fluxo de dados através do mapeamento visual.
+  - Por que o Figma?
+    - Escolhido para a prototipação e definição do layout do dashboard, garantindo padronização visual, validação prévia de UX/UI;
+    - Redução de retrabalho no Power BI.
+  - Por que o Power BI?
+    - Escolhido pela poderosa modelagem com DAX e alta interatividade para o usuário final;
+    - Oferece insights rápidos através de filtros dinâmicos, transformando dados brutos em decisões estratégicas.
  - Definição do Cronograma do Projeto;
 
    O cronograma do projeto será desenvolvido em cinco etapas: Análise, ETL, Modelagem, Designer e Governança dos Dados.
