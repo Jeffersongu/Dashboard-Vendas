@@ -48,6 +48,10 @@ O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o probl
   - Por que o Pentaho?
     - Utilizado para garantir controle do fluxo de dados e a aplicação de boas práticas de tratamento;
     - Permite a escalabilidade e o reaproveitamento de transformações, reduzindo o tempo de manutenção.
+  - Por que o GitHub?
+    - O projeto é dividido em arquivos de texto (JSON), permitindo que o GitHub identifique exatamente o que foi alterado em cada medida ou visual;
+    - A revisão de código que facilita a comparação entre versões, mostrando de forma clara o que mudou ao longo do desenvolvimento;
+    - Segurança e colaboração com histórico do projeto organizado, tornando mais fácil trabalhar em equipe e dar manutenção no futuro. 
   - Por que o Excalidraw?
     - Adotado para simplificar a comunicação técnica da arquitetura e o desenho dos processos;
     - Auxilia na identificação prévia de gargalos no fluxo de dados através do mapeamento visual.
