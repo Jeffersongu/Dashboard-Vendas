@@ -6,7 +6,6 @@
 
 
 ## 1° Problema de Negócio
-Explique o problema de negócio, qual o problema da empresa, o que está acontecendo ou o que motivou a criação desta solução.
 
 **Visão Geral da Express:**
 
