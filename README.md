@@ -1,11 +1,11 @@
-# Dashboard-Vendas
+# 🛒 Dashboard-Vendas
 <!-- Adicionando Gifs: -->
 ![Dashboard Vendas - Gifs](https://github.com/user-attachments/assets/3e5ba7cc-1496-44da-bd4a-e3f674f592eb)
 
 
 
-
-## 1° Problema de Negócio
+---
+## 📊 Problema de Negócio
 
 **Visão Geral da Express:**
 
@@ -13,26 +13,137 @@
 - Desafios: Muito tempo para produzir relatórios em Excel e muito retrabalho.
 - Detalhes dos Desafios: Levamos muito tempo na entrega dos relatórios de vendas que são desenvolvidos na área de vendas, limitando nossas análises. Queremos migrar do Excel para o Power BI e melhorar o layout dos nossos relatórios.
 
-## 2° Contexto
+
+---
+## 🔍 Contexto
  - Atualmente, a Express enfrenta desafios relacionados à eficiência e à escalabilidade de seus processos de análise de dados, especialmente no que diz respeito aos relatórios de vendas. As informações são extraídas de diferentes fontes e consolidadas manualmente em planilhas Excel, o que torna o processo moroso, suscetível a erros e altamente dependente de retrabalho. Essa abordagem impacta diretamente o tempo de entrega dos relatórios e limita a capacidade da área de vendas e da gestão em realizar análises mais profundas e em tempo hábil.
 
- ## 3° Premissas da Análise
+
+---
+## 🎯 Objetivos do Projeto
+- Estruturar o processo de análise de dados de vendas, reduzindo dependência de consolidações manuais em Excel;
+- Integrar dados provenientes de múltiplas fontes em um ambiente centralizado;
+- Automatizar o pipeline de ingestão e transformação de dados;
+- Aumentar a eficiência e a escalabilidade do processo analítico;
+- Diminuir o tempo de entrega de relatórios gerenciais.
+
+---
+## 🗂️ Dataset
+- Tabela Dimensão Fotos no formato Planilha do Microsoft Excel;
+- Tabela Fato Metas no formato Planilha do Microsoft Excel;
+- Tabela Fato Vendas no formato Planilha do Microsoft Excel.
+
+
+---
+## 🛠️ Tecnologias Utilizadas
+-  Notion;
+-  SQL Server;
+-  Pentaho;
+-  GitHub;
+-  Excalidraw;
+-  Figma;
+-  Power BI.
+
+---
+## 🧱 Modelagem de Dados
+A modelagem foi construída visando performance e clareza analítica, utilizando:
+
+- Modelo estrela;
+- Tabelas fato e dimensões;
+- Relacionamentos otimizados para análise no Power BI
+
+---
+## 📝 Modelo de Requisitos
+O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o problema de negócio, os objetivos analíticos e as entregas finais do projeto.
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/f384cbe7-20c4-454c-a949-4698d7688b99" width="800" alt="image">
+</p>
+
+
+---
+## 📅 Definição do Cronograma do Projeto
+ O cronograma do projeto será desenvolvido em cinco etapas: Análise, ETL, Modelagem, Designer e Governança dos Dados.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9cccf3b5-b26e-42c2-889a-bb2ac1fd8964" width="700" alt="image">
+</p>
+
+ 
+---
+ ## 📍 Premissas da Análise
 Para a condução desta análise, foram estabelecidas algumas premissas com o objetivo de garantir consistência, confiabilidade e alinhamento com o contexto do negócio.
  - Assume-se que os dados de vendas fornecidos pela empresa representam fielmente as operações realizadas no período analisado, estando devidamente registrados nos sistemas de origem, sem perdas relevantes de informação.
 
  - Considera-se também que as bases de dados utilizadas possuem granularidade suficiente para permitir análises por período, produto, cliente e região, possibilitando a construção de indicadores de desempenho e comparações temporais.
  - Eventuais inconsistências, valores nulos ou duplicidades serão tratadas por meio de processos de limpeza e transformação de dados durante a etapa de preparação.
 
- ## 4° Estratégia da Solução
+---
+## 🔄 Pipeline de Dados (ETL)
+O pipeline do projeto segue as seguintes etapas:
+
+- Extração dos dados a partir de arquivos ou bases de dados utilizando Pentaho;
+- Transformação (limpeza, padronização, tipagem e enriquecimento) com o Pentaho;
+- Carga na Stage;
+- Carga dos dados no Data Warehouse;
+- Visualização dos dados no Power BI.
+
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/71100f00-a783-4304-9a60-1e1f9fd43630" width="700" alt="image">
+</p>
+
+
+---
+ ## 💡 Estratégia da Solução
+A estratégia da solução foi estruturada com base em um Modelo de Requisitos, garantindo alinhamento entre o problema de negócio, os objetivos analíticos e as entregas finais do projeto.
+
+A execução foi organizada em etapas sequenciais e controladas, permitindo rastreabilidade, qualidade e evolução contínua da solução de dados.
+
+O plano contempla as fases de Análise, para entendimento do contexto e definição de métricas; ETL, para ingestão e transformação dos dados; Modelagem, para estruturação analítica; Design, para construção das visualizações e consumo; e Governança de Dados, para assegurar padronização, versionamento e confiabilidade das informações.
+
+ ### Etapa 1: Análise de Projeto
+ Nesta etapa, o foco é compreender profundamente o negócio do cliente. Isso envolve pesquisas, entrevistas e análises de documentos. O objetivo é identificar os desafios e necessidades do cliente, criando uma base sólida para as tarefas subsequentes.
+
+ Etapa completa:
+
+
+ ### Etapa 2: ETL
+ Durante a fase ETL (Extração, Transformação e Carga), nosso foco é assegurar que os dados estejam prontos para análises relevantes. Na etapa de Extração, coletamos dados de diversas fontes; na Transformação, realizamos limpeza e adaptação; e na Carga, disponibilizamos os dados em formato propício para análises.
+
+Etapa completa:
+
+
+ ### Etapa 3: Modelagem
+A Modelagem dos Dados representa a espinha dorsal do sistema, estabelecendo relacionamentos sólidos entre as tabelas e definindo a estrutura que suportará a análise de dados. Nessa fase, o foco está na criação de um modelo coeso e eficiente que atenda às necessidades específicas do negócio.
+
+Etapa completa:
+
+### Etapa 4: Designer do Projeto
+ A fase de Design é fundamental para moldar a arquitetura e a estética da solução. Durante essa etapa, é crucial definir a estrutura da interface, os componentes visuais e a lógica de interação para proporcionar uma experiência eficiente aos usuários finais. Essas decisões têm um impacto significativo na usabilidade e na eficácia da solução, influenciando diretamente a qualidade da experiência do usuário final e a efetividade do projeto de BI como um todo.
+
+Etapa completa:
+
+### Etapa 5: Monitoramento
+ A fase de Governança dos Dados é essencial para garantir a qualidade, integridade e segurança das informações manipuladas no projeto de BI. Nesse contexto, estabelecer políticas, normas e processos claros para a gestão dos dados é fundamental. A governança visa assegurar a confiabilidade das fontes de dados, promover a conformidade com regulamentações e padrões, além de definir papéis e responsabilidades na administração dos ativos de informação. Ao adotar práticas robustas de governança, a organização potencializa a tomada de decisões baseada em dados confiáveis e mitigação de riscos, contribuindo para o sucesso contínuo do projeto de BI.
+
+Etapa completa:
+
+
+
+
+
+---
 O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o problema de negócio, os objetivos analíticos e as entregas finais do projeto. 
 - Essa abordagem permite estruturar a análise de dados de forma lógica e rastreável, conectando fontes de dados, métricas, análises e stakeholders em um único framework.
 
 - A escolha desse modelo visa reduzir ambiguidades, priorizar indicadores relevantes para o negócio e assegurar que os dashboards desenvolvidos no Power BI atendam diretamente às necessidades da área comercial. Além disso, o uso do Modelo de Requisitos facilita a escalabilidade da solução, a manutenção dos relatórios e a comunicação entre áreas técnicas e de negócio.
 
-<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/f384cbe7-20c4-454c-a949-4698d7688b99" />
+<p align="center">
+<img src="https://github.com/user-attachments/assets/f384cbe7-20c4-454c-a949-4698d7688b99" width="900" alt="image">
+</p>
 
-
- #### 4.1° Análise de Projeto
+ ### Etapa 1: Análise de Projeto
  Nesta etapa, o foco é compreender profundamente o negócio do cliente. Isso envolve pesquisas, entrevistas e análises de documentos. O objetivo é identificar os desafios e necessidades do cliente, criando uma base sólida para as tarefas subsequentes:
  - Levantamento de Requisitos do Projeto;
  - Análise de Viabilidade;
@@ -67,7 +178,7 @@ O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o probl
    E cada tarefa possui um conjunto de atividades com um cheklist.
    
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9cccf3b5-b26e-42c2-889a-bb2ac1fd8964" width="800" alt="image">
+  <img src="https://github.com/user-attachments/assets/9cccf3b5-b26e-42c2-889a-bb2ac1fd8964" width="700" alt="image">
 </p>
 
  - Alinhamento com os Stakeholders
