@@ -81,18 +81,14 @@ Para a condução desta análise, foram estabelecidas algumas premissas com o ob
 ---
 ## 🔄 Pipeline de Dados (ETL)
 O pipeline do projeto segue as seguintes etapas:
+- Ingestão: Coleta de dados estruturados a partir de arquivos CSV (vendas, equipe, metas e produtos) e XLSX (fotos dos vendedores);
+- Transformação (ETL): Tratamento, limpeza e modelagem dos dados brutos utilizando o Power Query;
+- Visualização: Consolidação das informações no Power BI para geração de dashboards e análise de indicadores.
 
-- Extração dos dados a partir de arquivos ou bases de dados utilizando Pentaho;
-- Transformação (limpeza, padronização, tipagem e enriquecimento) com o Pentaho;
-- Carga na Stage;
-- Carga dos dados no Data Warehouse;
-- Visualização dos dados no Power BI.
 
-  
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/71100f00-a783-4304-9a60-1e1f9fd43630" width="700" alt="image">
+<img src="https://github.com/user-attachments/assets/8ae4c365-ad1e-4b20-99c4-437bd2ce740a" width="700" alt="image">
 </p>
-
 
 ---
  ## 💡 Estratégia da Solução
@@ -267,7 +263,7 @@ A Modelagem dos Dados representa a espinha dorsal do sistema, estabelecendo rela
  ## 7° Próximos Passos
  O que faríamos com mais tempo para trabalhar neste projeto por exemplo:
 
-- Desenvolvimento de Banco de Dados;
+- Alteração de Arquitetura;
 - Analise da Curva ABC;
 - Analise de Forecast;
 - Analise de Cohort;
