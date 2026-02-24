@@ -22,35 +22,34 @@
 ---
 ## 🎯 Objetivos do Projeto
 - Estruturar o processo de análise de dados de vendas, reduzindo dependência de consolidações manuais em Excel;
-- Integrar dados provenientes de múltiplas fontes em um ambiente centralizado;
+- Integrar dados em um ambiente centralizado;
 - Automatizar o pipeline de ingestão e transformação de dados;
 - Aumentar a eficiência e a escalabilidade do processo analítico;
 - Diminuir o tempo de entrega de relatórios gerenciais.
 
 ---
 ## 🗂️ Dataset
-- Tabela Dimensão Fotos no formato Planilha do Microsoft Excel;
-- Tabela Fato Metas no formato Planilha do Microsoft Excel;
-- Tabela Fato Vendas no formato Planilha do Microsoft Excel.
+- Tabela Dimensão Fotos no formato xlsx;
+- Tabela Fato Metas no formato  xlsx;
+- Tabela Fato Vendas no formato xlsx.
 
 
 ---
 ## 🛠️ Tecnologias Utilizadas
--  Notion;
--  SQL Server;
--  Pentaho;
--  GitHub;
--  Excalidraw;
--  Figma;
--  Power BI.
+-  Notion → Plataforma de gerenciamento do projeto;
+-  GitHub → Versionamento;
+-  Excalidraw → Arquitetura dos Dados;
+-  Power Query → Extração, Tratamento e Carregamento dos Dados;
+-  Figma → Designer;
+-  Power BI → Dataviz.
 
 ---
 ## 🧱 Modelagem de Dados
 A modelagem foi construída visando performance e clareza analítica, utilizando:
 
-- Modelo estrela;
-- Tabelas fato e dimensões;
-- Relacionamentos otimizados para análise no Power BI
+- Modelo Estrela;
+- Tabelas Fato e Dimensões;
+- Relacionamentos otimizados para análise no Power BI.
 
 ---
 ## 📝 Modelo de Requisitos
@@ -69,21 +68,14 @@ O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o probl
   <img src="https://github.com/user-attachments/assets/9cccf3b5-b26e-42c2-889a-bb2ac1fd8964" width="700" alt="image">
 </p>
 
- 
----
- ## 📍 Premissas da Análise
-Para a condução desta análise, foram estabelecidas algumas premissas com o objetivo de garantir consistência, confiabilidade e alinhamento com o contexto do negócio.
- - Assume-se que os dados de vendas fornecidos pela empresa representam fielmente as operações realizadas no período analisado, estando devidamente registrados nos sistemas de origem, sem perdas relevantes de informação.
 
- - Considera-se também que as bases de dados utilizadas possuem granularidade suficiente para permitir análises por período, produto, cliente e região, possibilitando a construção de indicadores de desempenho e comparações temporais.
- - Eventuais inconsistências, valores nulos ou duplicidades serão tratadas por meio de processos de limpeza e transformação de dados durante a etapa de preparação.
 
 ---
 ## 🔄 Pipeline de Dados (ETL)
 O pipeline do projeto segue as seguintes etapas:
-- Ingestão: Coleta de dados estruturados a partir de arquivos CSV (vendas, equipe, metas e produtos) e XLSX (fotos dos vendedores);
-- Transformação (ETL): Tratamento, limpeza e modelagem dos dados brutos utilizando o Power Query;
-- Visualização: Consolidação das informações no Power BI para geração de dashboards e análise de indicadores.
+- Extração: Coleta de dados estruturados a partir de arquivos xlsx (vendas, metas e fotos);
+- Transformação: Tratamento, limpeza dos dados brutos utilizando o Power Query;
+- Visualização: Modelagem e consolidação das informações no Power BI para geração de dashboard e análise de indicadores.
 
 
 <p align="center">
@@ -92,11 +84,9 @@ O pipeline do projeto segue as seguintes etapas:
 
 ---
  ## 💡 Estratégia da Solução
-A estratégia da solução foi estruturada com base em um Modelo de Requisitos, garantindo alinhamento entre o problema de negócio, os objetivos analíticos e as entregas finais do projeto.
+Como o projeto se concentra num produto de BI a estratégia adotada foi estruturada com base no Modelo de Requisitos, garantindo alinhamento entre os problemas de negócio, os objetivos analíticos e as entregas finais do projeto.
 
-A execução foi organizada em etapas sequenciais e controladas, permitindo rastreabilidade, qualidade e evolução contínua da solução de dados.
-
-O plano contempla as fases de Análise, para entendimento do contexto e definição de métricas; ETL, para ingestão e transformação dos dados; Modelagem, para estruturação analítica; Design, para construção das visualizações e consumo; e Governança de Dados, para assegurar padronização, versionamento e confiabilidade das informações.
+O plano contempla as fases de Análise, para entendimento do contexto e definição de métricas; ETL, para ingestão e transformação dos dados; Modelagem, para estruturação analítica; Design, para construção das visualizações e consumo; e Governança de Dados, para assegurar padronização, versionamento e confiabilidade das informações:
 
  ### Etapa 1: Análise de Projeto
  Nesta etapa, o foco é compreender profundamente o negócio do cliente. Isso envolve pesquisas, entrevistas e análises de documentos. O objetivo é identificar os desafios e necessidades do cliente, criando uma base sólida para as tarefas subsequentes.
