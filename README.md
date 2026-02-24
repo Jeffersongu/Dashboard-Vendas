@@ -52,25 +52,6 @@ A modelagem foi construída visando performance e clareza analítica, utilizando
 - Relacionamentos otimizados para análise no Power BI.
 
 ---
-## 📝 Modelo de Requisitos
-O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o problema de negócio, os objetivos analíticos e as entregas finais do projeto.
-
-<p align="center">
-<img src="https://github.com/user-attachments/assets/f384cbe7-20c4-454c-a949-4698d7688b99" width="800" alt="image">
-</p>
-
-
----
-## 📅 Definição do Cronograma do Projeto
- O cronograma do projeto será desenvolvido em cinco etapas: Análise, ETL, Modelagem, Designer e Governança dos Dados.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/9cccf3b5-b26e-42c2-889a-bb2ac1fd8964" width="700" alt="image">
-</p>
-
-
-
----
 ## 🔄 Pipeline de Dados (ETL)
 O pipeline do projeto segue as seguintes etapas:
 - Extração: Coleta de dados estruturados a partir de arquivos xlsx (vendas, metas e fotos);
@@ -120,54 +101,7 @@ Etapa completa:
 
 
 ---
-O Modelo de Requisitos foi adotado para garantir alinhamento claro entre o problema de negócio, os objetivos analíticos e as entregas finais do projeto. 
-- Essa abordagem permite estruturar a análise de dados de forma lógica e rastreável, conectando fontes de dados, métricas, análises e stakeholders em um único framework.
 
-- A escolha desse modelo visa reduzir ambiguidades, priorizar indicadores relevantes para o negócio e assegurar que os dashboards desenvolvidos no Power BI atendam diretamente às necessidades da área comercial. Além disso, o uso do Modelo de Requisitos facilita a escalabilidade da solução, a manutenção dos relatórios e a comunicação entre áreas técnicas e de negócio.
-
-<p align="center">
-<img src="https://github.com/user-attachments/assets/f384cbe7-20c4-454c-a949-4698d7688b99" width="900" alt="image">
-</p>
-
- ### Etapa 1: Análise de Projeto
- Nesta etapa, o foco é compreender profundamente o negócio do cliente. Isso envolve pesquisas, entrevistas e análises de documentos. O objetivo é identificar os desafios e necessidades do cliente, criando uma base sólida para as tarefas subsequentes:
- - Levantamento de Requisitos do Projeto;
- - Análise de Viabilidade;
- - Definição das Tecnologias Adotadas:
- - Por que o Notion?
-   - Centraliza toda a documentação;
-   - Organização de requisitos e decisões técnicas;
-   - Facilita a rastreabilidade entre negócio, dados e entregas analíticas.
-  - Por que o SQL Server?
-    - Utilizado como camada de armazenamento e Data Warehouse por oferecer robustez, confiabilidade, bom desempenho analítico;
-    - Fácil integração nativa com ferramentas de BI.
-  - Por que o Pentaho?
-    - Utilizado para garantir controle do fluxo de dados e a aplicação de boas práticas de tratamento;
-    - Permite a escalabilidade e o reaproveitamento de transformações, reduzindo o tempo de manutenção.
-  - Por que o GitHub?
-    - O projeto é dividido em arquivos de texto (JSON), permitindo que o GitHub identifique exatamente o que foi alterado em cada medida ou visual;
-    - A revisão de código que facilita a comparação entre versões, mostrando de forma clara o que mudou ao longo do desenvolvimento;
-    - Segurança e colaboração com histórico do projeto organizado, tornando mais fácil trabalhar em equipe e dar manutenção no futuro. 
-  - Por que o Excalidraw?
-    - Adotado para simplificar a comunicação técnica da arquitetura e o desenho dos processos;
-    - Auxilia na identificação prévia de gargalos no fluxo de dados através do mapeamento visual.
-  - Por que o Figma?
-    - Escolhido para a prototipação e definição do layout do dashboard, garantindo padronização visual, validação prévia de UX/UI;
-    - Redução de retrabalho no Power BI.
-  - Por que o Power BI?
-    - Escolhido pela poderosa modelagem com DAX e alta interatividade para o usuário final;
-    - Oferece insights rápidos através de filtros dinâmicos, transformando dados brutos em decisões estratégicas.
- - Definição do Cronograma do Projeto;
-
-   O cronograma do projeto será desenvolvido em cinco etapas: Análise, ETL, Modelagem, Designer e Governança dos Dados.
-   As etapas de projeto contém as tarefas que podem ser visualizadas na árvore hierárquica abaixo.
-   E cada tarefa possui um conjunto de atividades com um cheklist.
-   
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/9cccf3b5-b26e-42c2-889a-bb2ac1fd8964" width="700" alt="image">
-</p>
-
- - Alinhamento com os Stakeholders
 
  
  #### 4.2° ETL
